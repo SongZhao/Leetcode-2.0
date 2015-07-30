@@ -475,7 +475,7 @@ public class leetcode {
 	public int removeElement(int[] nums, int val)
 	{
 		int i = 0, j = 0;
-		for(j <= nums.length -1; j++ )
+		for(;j <= nums.length -1; j++ )
 		{
 			if(nums[j] != val)
 			{
@@ -485,5 +485,225 @@ public class leetcode {
 		}
 		return i;
 	}
-
+	//Implement strStr()
+	public int strStr(String haystack, String needle)
+	{
+		if(needle.length() == 0)
+			return 0;
+		for(int i = 0; i <= hay  .length() - needle.length(); i++)
+		{
+			String subs = haystack.substring(i, i + needle.length());
+			if(subs.equals(needle))
+				return i;
+		}
+		return -1;
+	}
+	
+	//divide two Integers
+	//first convert it to long type so we can handle int's overflow in long
+	public int divide(int dividend, int divisor)
+	{
+		int sign = ((dividend < 0)^(divisor < 0))?-1:1;
+		long sdividend = Math.abs((long)dividend), sdivisor = Math.abs((long)divisor);
+		long quotient = 0;
+		long t = 0;
+		for(int i = 31; i >= 0; i--)
+		{
+			if((t+(sdivisor<<i))<=sdividend)
+			{
+				t +=(sdivisor << i);
+				quotient ^= (long)1<<i;
+			}
+		}
+		if(sign < 0)
+			quotient = -quotient;
+		if(quotient > Integer.MAX_VALUE)
+			quotient = Integer.MAX_VALUE;
+		if(quotient < Integer.MIN_VALUE)
+			quotient = Integer.MIN_VALUE;
+		return (int)quotient;
+	}
+	
+	//Substring with concatenation of all words
+	public List<Integer> findSubstring(String S, String[] L)
+	{
+		List<Integer> res = new ArrayList<Integer>();
+		if(S == null || L == null || L.length == 0)
+			return res;
+		int len = L[0].length();
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		for(String w : L)
+		{
+			map.put(w, map.containsKey(w)?map.get(w)+1: 1);
+		}
+		for(int i = 0; i <= S.length() - L.length*len; i++)  //this boundary here is '<=', because s.length() - L.length*len + 1 is the start index of the last possible section.
+		{
+			Map<String, Integer> copy = new HashMap<String, Integer>(map);
+			for(int j = 0; j < L.length; j++)
+			{
+				String str = S.substring(i+j*len, i+j*len+len);
+				if(copy.containsKey(str))
+				{
+					int count = copy.get(str);
+					if(count == 1)
+						copy.remove(str);
+					else
+						copy.put(str, count-1);
+					if(copy.isEmpty())
+					{
+						res.add(i);
+						break;
+					}
+				}
+				else
+					break;
+			}
+		}
+		return res;
+	}
+	
+	//Next permutation
+	public void nextPermutation(int[] num)
+	{
+		int leng =num.length;
+		if(leng < 2)
+			return;
+		int i = leng -1;
+		for(; i > 0 && num[i-1] >= num[i]; i--); //find the relative max value
+		if(i == 0)
+		{
+			Arrays.sort(num);
+			return;
+		}
+		int j = leng - 1;
+		for(;num[i-1]>=num[j]; j--);
+		int tmp = num[j];
+		num[j] = num[i-1];
+		num[i-1] = tmp;
+		Arrays.sort(num, i, leng);
+			
+	}
+	
+	
+	//Longest valid parentheses
+	//we push index into the stack to keep track of the length
+	public int longestValidParentheses(String s)
+	{
+		if(s.length() == 0 || s.length() == 1)
+			return 0;
+		Stack<Integer> stack = new Stack<Integer>();
+		int max = 0, count;
+		for(int i = 0; i < s.length() - 1; i++)
+		{
+			if(s.charAt(i) == '(')
+				stack.push(i);
+			else
+			{
+				if(!stack.isEmpty() && s.charAt(stack.peek()) == '(')
+				{
+					stack.pop();
+					count = (stack.isEmpty())? i + 1: i - stack.peek();
+					max = Math.max(count, max);
+				}
+				else
+					stack.push(i);
+			}
+		}
+		return max;
+	}
+	
+	
+	//Search in rotated sorted array
+	public int search(int[] nums, int target)
+	{
+		int l = 0, h = nums.length - 1;
+		while( l <= h)    //here has to be <=, other wise there would be a case where nums only has one number
+		{
+			int m = (l+h)/2;
+			if(target == nums[m])
+				return m;
+			if(target == nums[l])
+				return l;
+			if(target == nums[h])
+				return h;
+			if(nums[l] < nums[m])
+			{
+				if(target < nums[m] && target > nums[l])
+				{
+					h = m - 1;
+					l = l + 1;
+				}
+				else
+				{
+					l = m + 1;
+					h = h-1;
+				}
+			}
+			else
+			{
+				if(target > nums[m] && target < nums[h])
+				{
+					l = m + 1;
+					h = h - 1;
+				}
+				else
+				{
+					l = l + 1;
+					h = h - 1;
+				}
+			}
+		}
+		return -1;
+	}
+	
+	//search in rotated sorted arrayII
+	public boolean searchII(int[]nums, int target)
+	{
+		int l = 0, h = nums.length - 1;
+		while(l <= h)
+		{
+			if(nums[l] == target)
+				return true;
+			if(nums[h] == target)
+				return true;
+			if(nums[l] == nums[h])
+			{
+				l++;
+				h--;
+			}
+			int m = (l+h)/2;
+			if(nums[m] == target)
+				return true;
+			
+			if(nums[l] <= nums[m])
+			{
+				if(target > nums[l] && target < nums[m])
+				{
+					l++;
+					h = m -1;
+				}
+				else
+				{
+					l = m + 1;
+					h--;
+				}
+			}
+			else
+			{
+				if(target > nums[m] && target < nums[h])
+				{
+					l = m + 1;
+					h--;
+				}
+				else
+				{
+					l++;
+					h = m -1;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
 }
