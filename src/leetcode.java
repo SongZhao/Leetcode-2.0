@@ -394,5 +394,96 @@ public class leetcode {
 		}
 		return lists[0];
 	}
+	
+	//Swap nodes in pairs
+	public ListNode swapPairs(ListNode head)
+	{
+		ListNode virtue = new ListNode(0);
+		ListNode pvirtue = virtue;
+		pvirtue.next = head;
+		ListNode swap, postswap;
+		while(pvirtue.next != null && pvirtue.next.next != null)
+		{
+			swap = pvirtue.next;
+			postswap = swap.next.next;
+			pvirtue.next = swap.next;
+			pvirtue.next.next = swap;
+			swap.next = postswap;
+			pvirtue = swap;
+		}
+	}
+	
+	//Reverse nodes in k-group
+	public ListNode reverseKGroup(ListNode head, int k)
+	{
+		ListNode Virtue = new ListNode(0);
+		ListNode pVirtue = Virtue;
+		pVirtue.next = head;
+		ListNode swapp1, swapp2;
+		ListNode end = new ListNode(0);
+		if(head == null)
+			return head;
+		if(k == 1)
+			return head;
+		end = head;    //end is the first node of the section that needs to be swapped
+		while(true)
+		{
+			int i = k;
+			while(i > 0)
+			{
+				if (end == null)
+					return Virtue.next;
+				end = end.next;
+				i--;
+				if(end == null && i != 0) //double check if the end is null, because it can be null and not cause return(for swapping)
+					return Virtue.next;
+			}
+			swapp1 = pVirtue.next;
+			while(swapp1 != end)
+			{
+				swapp2 = swapp1;
+				while(swapp2.next.next != end)
+				{
+					swapp2 = swapp2.next;
+				}
+				pVirtue.next = swapp2.next;
+				pVirtue.next.next = swapp1;
+				swapp2.next = end;
+				pVirtue = pVirtue.next;
+			}
+			pVirtue = swapp1;
+		}
+	}
+	
+	//remove duplicates from sorted array
+	public int removeDuplicates(int[] nums)
+	{
+		int i = 0;
+		int j = i;
+		if(nums.length ==0 || nums.length == 1)
+			return nums.length;
+		while(j < nums.length -1)
+		{
+			j++;
+			if(nums[i]!=nums[j])
+				nums[++i] = nums[j];
+		}
+		return i+1;
+	}
+	
+	//remove element
+	public int removeElement(int[] nums, int val)
+	{
+		int i = 0, j = 0;
+		for(j <= nums.length -1; j++ )
+		{
+			if(nums[j] != val)
+			{
+				nums[i] = nums[j];
+				i++;
+			}
+		}
+		return i;
+	}
 
 }
