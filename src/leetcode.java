@@ -329,5 +329,70 @@ public class leetcode {
 		if(close < open)
 			backtrack(list, s + ')', open, close, max);
 	}
+	
+	//Merge two sorted lists
+	//the dumb way
+	public ListNode mergeTwoList(ListNode l1, ListNode l2)
+	{
+		ListNode head = new ListNode(0);
+		ListNode p = head;
+		while(l1 != null && l2 != null)
+		{
+			if(l1.val < l2.val)
+			{
+				p.next = l1;
+				l1 = l1.next;
+				p = p.next;
+			}
+			else
+			{
+				p.next = l2;
+				l2 = l2.next;
+				p = p.next;
+			}
+			if(l1 == null)
+				p.next = l2;
+			else
+				p.next = l1;
+			return head.next;
+		}
+	}
+	//Merge k sorted lists
+	//M1 devide and conquer
+	public ListNode mergeTwoLists(ListNode l1, ListNode l2)    //merge two list the rec way!!!!!!!
+	{
+		if(l1 == null)
+			return l2;
+		if(l2 == null)
+			return l1;
+		
+		if(l1.val < l2.val)
+		{
+			l1.next = mergeTwoLists(l1.next,l2);
+			return l1;
+		}
+		else
+		{
+			l2.next = mergeTwoLists(l1, l2.next);
+			return l2;
+		}
+	}
+	public ListNode mergeKLists(ListNode[] lists)
+	{
+		int len = lists.length;
+		if(lists.length == 0)
+			return null;
+		if(lists.length == 1)
+			return lists[0];
+		while(len > 1)
+		{
+			for(int i = 0; i < len; i++)
+			{
+				lists[i] = mergeTwoLists(lists[i], lists[len - i -1]);
+			}
+			len = (len/2 + len%2);
+		}
+		return lists[0];
+	}
 
 }
