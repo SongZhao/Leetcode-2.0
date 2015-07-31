@@ -1,7 +1,7 @@
 
 import java.util.*;
 import java.util.Arrays;
-
+import java.util.HashSet;
 public class leetcode {
 //twosum
 	//3sum
@@ -354,8 +354,9 @@ public class leetcode {
 				p.next = l2;
 			else
 				p.next = l1;
-			return head.next;
+			
 		}
+		return head.next;
 	}
 	//Merge k sorted lists
 	//M1 devide and conquer
@@ -411,6 +412,7 @@ public class leetcode {
 			swap.next = postswap;
 			pvirtue = swap;
 		}
+		return virtue.next;
 	}
 	
 	//Reverse nodes in k-group
@@ -490,7 +492,7 @@ public class leetcode {
 	{
 		if(needle.length() == 0)
 			return 0;
-		for(int i = 0; i <= hay  .length() - needle.length(); i++)
+		for(int i = 0; i <= haystack.length() - needle.length(); i++)
 		{
 			String subs = haystack.substring(i, i + needle.length());
 			if(subs.equals(needle))
@@ -704,6 +706,275 @@ public class leetcode {
 		}
 		return false;
 	}
+	//search for a range
+	public int[] searchRange(int[] nums, int target)
+	{
+		int a = -1, b = -1;
+		if(nums.length == 0)
+			return new int[]{-1,-1};
+		int l = 0, h = nums.length - 1;
+		while(l <= h)
+		{
+			if(target == nums[l])
+			{
+				a = l;
+				break;
+			}
+			if(target == nums[h])
+			{
+				a = h;
+				break;
+			}
+			int m = (l+h)/2;
+			if(target == m)
+			{
+				a = m;
+				break;
+			}
+			if(target < nums[m])
+			{
+				l++;
+				h = m -1;
+			}
+			if(target > nums[m])
+			{
+				l = m + 1;
+				h--;
+			}
+		}
+		b = a;
+		for(; a - 1 >= 0 && nums[a-1]==target; a--);
+		for(; b+1 <= nums.length - 1 && nums[b+1] == target; b++);
+		return new int[]{a,b};
+	}
+	
+	//Search insert position
+	//Method 1
+	public int searchInsert(int[] nums, int target)
+	{
+		int l = 0, h = nums.length - 1;
+		while(l <= h)
+		{
+			int m = (l+h)/2;
+			if(target == nums[l])
+				return l;
+			if(target == nums[m])
+				return m;
+			if(target < nums[m]) //unlike previous binary search, this time we only change one index.
+				h = m - 1;
+			if(target > nums[m])
+				l = m + 1;
+		}
+		return l;
+	}
+	
+	//method 2
+	//use recuision, its just like the previous one, but another way to address the while loop's end condition.
+	public int searchInsertHelper(int[] nums, int low, int high, int target)
+	{
+		if(low > high)
+			return low;
+		int mid = (low+high)/2;
+		if(nums[mid] == target)
+			return mid;
+		else if(nums[mid] > target)
+			return searchInsertHelper(nums, low, mid - 1, target);
+		else
+			return searchInsertHelper(nums, mid + 1, low, target);
+	}
+	public int searchInsert2(int[] nums, int target)
+	{
+		return searchInsertHelper(nums, 0, nums.length-1, target);
+	}
+	
+	
+	//valid sudoku
+	public static boolean isValidSudoku(char[][] board)
+	{	
+		HashSet[] row = new HashSet[9];
+		HashSet[] col = new HashSet[9];
+		HashSet[] Grid = new HashSet[9];
+		
+		for(int i = 0; i < 9; i++)
+		{
+			row[i] = new HashSet<Character>();
+			col[i] = new HashSet<Character>();
+			Grid[i] = new HashSet<Character>();
+		}
+		for(int i = 0; i < 9; i++)
+		{
+			for(int j = 0; j < 9; j++)
+			{
+				if(board[i][j] != '.')
+				{
+					if(row[i].contains(board[i][j])||col[j].contains(board[i][j])||Grid[3*(i/3)+j/3].contains(board[i][j]))
+						return false;
+					else
+					{
+						row[i].add(board[i][j]);
+						col[j].add(board[i][j]);
+						Grid[3*(i/3)+j/3].add(board[i][j]);
+					}
+				
+				}
+			}
+		}
+		return true;
+	}
+	
+	//sudoku solver
+	public void solveSudoku(char[][] board)
+	{
+		if(board == null || board.length == 0)
+			return;
+		solve(board);
+	}
+	public boolean solve(char[][] board)
+	{
+		for(int i = 0; i < board.length; i++)
+		{
+			for(int j = 0; j < board[0].length; j++)
+			{
+				if(board[i][j] =='.')
+				{
+					for(char c = '1'; c <= '9'; c++)
+					{
+						if(isValid(board,i,j,c))
+						{
+							board[i][j] = c;
+							if(solve(board))
+								return true;
+							else
+								board[i][j] = '.';
+						}
+					}
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	public boolean isValid(char[][] board, int i, int j, char c)
+	{
+		for(int row = 0; row < 9; row++)
+		{
+			if(board[row][j] == c)
+				return false;
+		}
+		for(int col = 0; col < 9; col++)
+		{
+			if(board[i][col] == c)
+				return false;
+		}
+		for(int row = (i/3)*3; row < ((i/3)*3+3); row++)
+		{
+			for(int col = (j/3)*3; col < (j/3)*3+3; col++)
+			{
+				if(board[row][col] == c)
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	//Count and say
+	public String countAndSay(int n)
+	{
+		if(n == 1)
+			return "1";
+		String nToChar = countAndSay(n-1);
+		StringBuilder  sb = new StringBuilder();
+		int len = nToChar.length();
+		int off = 1;
+		int count = 1;
+		char cur = nToChar.charAt(0);
+		while(off != len)
+		{
+			if(nToChar.charAt(off) == cur)
+			{
+				off++;
+				count++;
+			}
+			else
+			{
+				sb.append(count + "" + cur);
+				cur = nToChar.charAt(off++); //off++ means off only increment after assign ntos.charAt(off) to cur; 
+				count = 1;
+			}
+		}
+		sb.append(count+""+cur);
+		return sb.toString();
+	}
+	
+	//First missing positive
+	//for a n length array, there r at most n positive numbers, everytime we encounter an positive number, put it into
+	//Corresponding location
+	public int firstMissingPositive(int[] nums) 
+	{
+		for(int i = 0; i < nums.length; i++)
+		{
+			int val = nums[i];
+			while(val <= nums.length && val > 0 && nums[val-1] != val) //ie. if val = 2  >> nums[1] = 2;
+	                                                            //we need a while loop to keep swaping to correct states b4 we move to next index.
+			{
+				int tmp = nums[val - 1];
+				nums[val - 1] = val;
+				nums[i] = tmp;
+				val = tmp;                                              //keep val updated for the while loop condition.
+			}
+		}
+		for(int i = 0; i < nums.length; i++)
+		{
+			if(nums[i] != i+1)
+				return i+1;
+		}
+		return nums.length +1;
+	}
+	
+	public int trap(int[] A)
+	{
+		int leng = A.length;
+		int left = 0, right = A.length - 1, area = 0, secHeight = 0;
+		while(left < right)
+		{
+			if(A[left] < A[right])
+			{
+				secHeight = Math.max(A[left], secHeight);
+				area += secHeight - A[left++];
+			}
+			else
+			{
+				secHeight = Math.max(A[right], secHeight);
+				area += secHeight - A[right--];
+			}
+		}
+		return area;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
