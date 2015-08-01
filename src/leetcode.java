@@ -952,6 +952,40 @@ public class leetcode {
 		return area;
 	}
 	
+	public boolean isMatch(String s, String p)
+	{
+		int i = 0;
+		int j = 0;
+		int ikeeper = 0;
+		int jkeeper = 0;
+		while(i < s.length())
+		{
+			if(j < p.length() && (p.charAt(j) == '?' || s.charAt(i) == p.charAt(j)))
+			{
+				i++;
+				j++;
+			}
+			else if(j < p.length() && p.charAt(j) = '*')
+			{
+				ikeeper = i;
+				jkeeper = j;
+				j++;
+			}
+			else if(jkeeper != 1)
+			{
+				j = jkeeper +1;
+				ikeeper++;
+				i = ikeeper;
+			}
+			else
+				return false;
+		}
+		while(j< p.length() && p.charAt(j) == '*')
+			j++;
+		return j==p.length();
+	}
+	
+	
 	
 	
 	
