@@ -951,7 +951,7 @@ public class leetcode {
 		}
 		return area;
 	}
-	
+	//wildcard matching
 	public boolean isMatch(String s, String p)
 	{
 		int i = 0;
@@ -965,7 +965,7 @@ public class leetcode {
 				i++;
 				j++;
 			}
-			else if(j < p.length() && p.charAt(j) = '*')
+			else if(j < p.length() && p.charAt(j) == '*')
 			{
 				ikeeper = i;
 				jkeeper = j;
@@ -984,6 +984,76 @@ public class leetcode {
 			j++;
 		return j==p.length();
 	}
+	
+	
+	//Jumped game ||
+	public int jump(int[] nums)
+	{
+		int max = nums[0];
+		if(nums.length == 1)
+			 return 0;
+		int step = 0;
+		int premax = 0;
+		for(int i =0; i < nums.length - 1; i++)
+		{
+			max = Math.max(max, nums[i]+i);
+			if(max > nums.length - 1)
+				return step - 1;
+			if(premax == i)
+			{
+				premax = max;
+				step++;
+			}
+		}
+		return step;
+	}
+	
+	//jump game I
+	 public boolean canJump(int[] nums) 
+	 {
+	        if(nums.length == 0 || nums == null)
+	            return false;
+	        int max = nums[0];
+	        for(int i = 0; i < nums.length - 1; i++)
+	        {
+	            if(max >= i) //its crucial to add this statement.
+	            {
+	                max = Math.max(i+nums[i], max);
+	            }
+	        }
+	        if(max >= nums.length - 1)
+	            return true;
+	        else
+	            return false;
+	  }
+	 
+	 //combination sum
+	 public List<List<Integer>> combinationSUm(int[] candidates, int target)
+	 {
+		 Arrays.sort(candidates);
+		 List<List<Integer> result = new ArrayList<List<Integer>>();
+		 List<Integer> buff = new ArrayList<Integer>();
+		 return getCombSum(candidates, target, 0, buff, result);
+	 }
+	 public List<List<Integer>> getCombSum(int[] candi, int target, 
+			 int index, List<Integer> buff, List<List<Integer>> res)
+	 {
+		 if(target == 0)
+		 {
+			 res.add(new ArrayList<Integer>(buff));
+			 return res;
+		 }
+		 else
+		 {
+			 for(int i = index; i <= candi.length && candi[i] <= target; i++)
+			 {
+				 buff.add(candi[i]);
+				 getCombSum(candi, target - candi[i], i, buff, res);
+				 buff.remove(buff.size() - 1);
+			 }
+		 }
+		 return res;
+	 }
 	
 	
 	
