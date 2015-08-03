@@ -473,6 +473,9 @@ public class leetcode {
 		return i+1;
 	}
 	
+
+	
+	
 	//remove element
 	public int removeElement(int[] nums, int val)
 	{
@@ -1150,7 +1153,9 @@ public class leetcode {
 		 Arrays.sort(nums);
 		 return recsubset(nums, nums.length - 1);
 	 }
-	 public List<List<Integer>> recsubset(int[] nums, int k)
+	 public List<List<Integer>> recsubset(int[] nums, int k) //from the base case, every upper case will copy
+	 														//previous case's results and then attach current number on every results
+	 														//so it will be current results = previous results + previous result +nums[current]; 
 	 {
 		 List<List<Integer>> res = new ArrayList<List<Integer>>();
 		 if(k == -1)
@@ -1168,12 +1173,251 @@ public class leetcode {
 		 return res;
 	 }
 	 
+	 //word Search
+	 //use bfs
+	 char brd[][];
+	 boolean used[][];
+	 static int height, width;
+	 String wordy;
+	 public boolean exist(char[][] board, String word)
+	 {
+		 width = board[0].length;
+		 height = board.length;
+		 brd = board;
+		 wordy = word;
+		 used = new boolean[height][width];
+		 for(int i = 0; i < height; i++)
+		 {
+			 for(int j = 0; j < width; j++)
+			 {
+				 if(exit_helper(i,j,0))
+					 return true;
+			 }
+		 }
+		 return false;
+	 }
+	 public boolean exit_helper(int i, int j, int k)
+	 {
+		 if(!used[i][j] && wordy.charAt(k) == brd[i][j])
+		 {
+			 if(k+1 == wordy.length())
+				 return true;
+			 used[i][j] = true;        //only set current boolean is true when we decide to move to next.
+			 if(i+1 < height && exit_helper(i+1, j, k+1))
+				 return true;
+			 if(i - 1 > 0 && exit_helper(i - 1, j, k+1))
+				 return true;
+			 if(j+1 < width && exit_helper(i, j + 1, k+1))
+				 return true;
+			 if(j - 1 > 0 && exit_helper(i, j - 1, k + 1))
+				 return true;
+		 }
+		 	return false;
+		 
+	 }
 	 
+	 //remove duplicates from sorted arrayII
+	 public int removeDuplicatesII(int[] nums)
+	 {
+		 int i = 0, j = 0;
+		 if(nums.length == 0)
+			 return nums.length;
+		 Map<Integer, Integer> list = new HashMap<Integer, Integer>();
+		 list.put(nums[0], 1);
+		 while(j < nums.length -1)
+		 {
+			 ++j;
+			 if(list.containsKey(nums[j]) && list.get(nums[j]) >= 2)
+			 {
+				 //do nothing
+			 }
+			 if(list.containsKey(nums[j]) && list.get(nums[j]) == 1)//appeared once
+			 {														//update cache
+				 list.put(nums[j], 2);								//move i forward, update the value
+				 nums[++i] = nums[j];
+			 }
+			 else													//first appearance
+			 {														//update cache
+				 list.put(nums[j], 1);								//move i forward, update the value
+				 nums[++i] = nums[j];
+			 }
+		 }
+		 return i+1;     //its i+1 because the size is index + 1;
+	 }
 	 
+	 //remove duplicates from sorted list
+	 public ListNode deleteDuplicates(ListNode head)
+	 {
+		 if(head == null)
+			 return null;
+		 ListNode notDup = head;
+		 ListNode index = head.next;
+		 while(index != null)
+		 {
+			 if(notDup.val != index.val)
+			 {
+				 notDup.next = index;
+				 notDup = notDup.next;
+			 }
+			 index = index.next;
+		 }
+		 notDup.next = null; //cut the list
+		 return head; 
+	 }
+	  
+	 //remove duplicates from sorted list II
+	 public ListNode deleteDuplicatesII(ListNode head)
+	 {
+		 if(head == null)
+			 return head;
+		 ListNode v = new ListNode(0);
+		 v.next = head;
+		 ListNode pre = v;
+		 ListNode cur = head;
+		 while(cur != null)
+		 {
+			 while(cur.next != null && cur.val == cur.next.val)
+				 cur = cur.next;
+			 if(pre.next == cur)
+				 pre = pre.next;
+			 else
+				 pre.next = cur.next;
+			 cur = cur.next;
+		 }
+		 return v.next;
+	 }
 	 
+	 //Largest Rectangle in Histogram
+	 //use stack
+	 //Starting from first bar
+	 //  a)if stack is empty or current bar is higher than the bar at top of stack, push current bar to stack
+	 //  b)if this bar is smaller than the top of stack, then keep removing the top of stack while top of the stack is greater.
+	 //let removed bat be height[low], calculate the area of rectangle with height[low] as smallest bar. the left index is the previous
+	 //item in stack(stack.peek() - 1)  and right index is i.
+	 public int largestRectangleArea(int[] height)
+	 {
+		 int leng = height.length;
+		 Stack<Integer> sk = new Stack<Integer>();
+		 int i = 0;
+		 int maxarea = 0;
+		 while(i < leng)
+		 {
+			 if(sk.empty() || height[sk.peek()] < height[i]) //if this bar is higher than the bar on top stack, push it to stack
+				 sk.push(i++);
+			 //if this bar is lower than top of stack, calculate area of rectangle
+			 //with stack top as the smallest bar. i is the right index for the top and element before top
+			 //and element be 
+			 else
+			 {
+				 int top = sk.pop();
+				 int area = height[top]*(sk.empty()? i : i - 1- sk.peek());
+				 maxarea = Math.max(area, maxarea);
+			 }
+		 }
+		 while(!sk.empty())
+		 {
+			 int top = sk.pop();
+			 int area = height[top]*(sk.empty()? i : i - 1- sk.peek());
+			 maxarea = Math.max(area,  maxarea);
+		 }
+		 return maxarea;
+	 }
 	 
-	 
-	 
+	 //Maximal rectangle
+	 public int maximalRectangle(char[][] matrix)
+	 {
+		 if(matrix == null || matrix.length == 0|| matrix[0].length == 0)
+			 return 0;
+		 int col = matrix[0].length;
+		 int row = matrix.length;
+		 int[] h = new int[col + 1];
+		 h[col] = 0;
+		 int max = 0;
+		 for(int nrow = 0; nrow < row; nrow++)
+		 {
+			 Stack<Integer> s = new Stack<Integer>();
+			 for(int i = 0; i < col + 1; i ++)
+			 {
+				 if(i < col)
+				 {
+					 if(matrix[nrow][i] == '1')
+						 h[i]++;
+					 else
+						 h[i] = 0;
+				 }
+			 
+				 if(s.isEmpty() || h[s.peek()] < h[i])
+					 s.push(i);
+				 else
+				 {
+					 while(!s.isEmpty() && h[i] < h[s.peek()])
+					 {
+						 int top = s.pop();
+						 int area = h[top]*((s.isEmpty())? i : i - 1 - s.peek());
+						 max = Math.max(area, max);
+					 }
+					 s.push(i);//push it again for next iteration.
+				 }
+			 }
+		 }
+		 return max;
+		 
+		 //partition list
+		 //
+		 public ListNode partition(ListNode head, int x)
+		 {
+			 ListNode v = new ListNode(0);
+			 ListNode v2 = new ListNode(0);
+			 ListNode ptr = v, ptr2 = v2;
+			 //use 3 pointers, one pointed to the last element of first of list, another one pointed to the last element of second list
+			 //the 3rd point(head) iterate through the list.
+			 while(head != null)
+			 {
+				 if(head.val < x)
+				 {
+					 ptr.next = head;
+					 ptr = ptr.next;
+				 }
+				 else
+				 {
+					 ptr2.next = head;
+					 ptr2 = ptr2.next;
+				 }
+			 }
+			 ptr.next = v2.next;  //note: v and v2 only change their next at the first time ptr and ptr2 assign their next, because
+			 ptr2.next = null;    //at that time v = ptr, v2 = ptr2
+			 return v.next;
+			 
+		 }
+		 
+		 //Scamble words
+		 //its swap of a non-leaf's child, so there must be a portion that two string's has the same char ignore it's order.
+		 public boolean isScramble(String s1, String s2)
+		 {
+			 if(s1.equals(s2))
+				 return true;
+			 int[] letters = new int[26];
+			 for(int i = 0; i < s1.length(); i++)
+			 {
+				 letters[s1.charAt(i) - 'a']++;
+				 letters[s2.charAt(i) - 'a']--;    //use -'a' to convert char to int.
+			 }
+			 for(int i = 0; i < 26; i++)
+			 {
+				 if(letters[i] != 0)
+					 return false;
+			 }
+			 for(int i = 1; i < s1.length(); i++)
+			 {
+				 if(isScramble(s1.substring(0,i), s2.substring(0, i)) &&
+						 isScramble(s1.substring(i),s2.substring(i)))
+						 return true;
+				 if(isScramble(s1.substring(0,i), s2.substring(s2.length() - i)) &&
+						 isScramble(s1.substring(i), s2.substring(s2.length() - i)))
+					 	return true;
+			 }
+			 return false;
+		 }
 	 
 	 
 	 
