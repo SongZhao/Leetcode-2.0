@@ -149,7 +149,7 @@ public class leetcode {
 			else
 				digits[i] = 0;
 		}
-		
+		  z
 		//if we completed the loop and didnt return, this means we have an '1' carry out and all other bits are 0;
 		int[] res = new int[digits.length + 1];
 		res[0] = 1;
@@ -1031,7 +1031,7 @@ public class leetcode {
 	 public List<List<Integer>> combinationSUm(int[] candidates, int target)
 	 {
 		 Arrays.sort(candidates);
-		 List<List<Integer> result = new ArrayList<List<Integer>>();
+		 List<List<Integer>> result = new ArrayList<List<Integer>>();
 		 List<Integer> buff = new ArrayList<Integer>();
 		 return getCombSum(candidates, target, 0, buff, result);
 	 }
@@ -1053,6 +1053,39 @@ public class leetcode {
 			 }
 		 }
 		 return res;
+	 }
+	 
+	 //combination sumII
+	 //rec
+	 public List<List<Integer>> combinationSumII(int [] candidates, int target)
+	 {
+		 Arrays.sort(candidates);
+		 List<List<Integer>> res = new ArrayList<List<Integer>>();
+		 List<Integer> buff = new ArrayList<Integer>();
+		 return getComSumII(candidates, target, 0, buff, res);
+	 }
+	 public List<List<Integer>> getComSumII(int[] candi, int target, int index, List<Integer> buff, List<List<Integer>> res)
+	 {
+		 if(target == 0)
+		 {
+			 res.add(new ArrayList<Integer>(buff));
+			 return res;
+		 }
+		 else
+		 {
+			 for(int i = index; i <= candi.length - 1 && candi[i] <= target; i++)
+			 {
+				 if(i > index && candi[i] == candi[i-1])  //use this condition to rule out the solution start with same number.
+					 continue;
+				 else
+				 {
+					 buff.add(candi[i]);
+					 getComSumII(candi, target - candi[i], i++, buff, res));
+					 buff.remove(buff.size() - 1);
+				 }
+					 
+			 }
+		 }
 	 }
 	
 	
