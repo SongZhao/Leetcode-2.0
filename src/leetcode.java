@@ -1087,7 +1087,96 @@ public class leetcode {
 			 }
 		 }
 	 }
-	
+	 
+	 //combination
+	 //use rec
+	 public List<List<Integer>> combination(int n, int k)
+	 {
+		 List<List<Integer>> res= new ArrayList<List<Integer>>();
+		 List<Integer> list = new ArrayList<Integer>();
+		 combine(list,res,n,k);
+		 return res;
+	 }
+	 public void combine(List<Integer> list, List<List<Integer>> res, int n, int k)
+	 {
+		 if(k == 0) //c(n,0) = 1;
+			 res.add(new ArrayList<Integer>(list));
+		 else
+		 {
+			 for(int i = n; i > k - 1; i++)
+			 {
+				 list.add(0,i);
+				 combine(list,res, n - 1, k - 1);
+				 list.remove(0);
+			 }
+		 }
+	 }
+	 
+	 //use queue
+	 public List<List<Integer>> combination2(int n, int k)
+	 {
+		 Deque<List<Integer>> queue  = new LinkedList<List<Integer>>();
+		 List<List<Integer>> summary = new LinkedList<List<Integer>>();
+		 
+		 for(int i = 1; i <= n; i++)
+		 {
+			 List<Integer> list = new LinkedList<Integer>();
+			 list.add(i);
+			 queue.add(list);
+		 }
+		 while(!queue.isEmpty())
+		 {
+			 List<Integer> list = queue.pollFirst();
+			 if(list.size() == k)
+				 summary.add(list);
+			 else
+			 {
+				 for(int i = list.get(list.size()-1) + 1; i <= n; i++) //
+				 {
+					 List<Integer> next_list = new LinkedList<Integer>();
+					 next_list.addAll(list);
+					 next_list.add(i);
+					 queue.addLast(next_list);
+				 }
+			 }
+		 }
+		 return summary;
+	 }
+	 
+	 //subset
+	 //rec
+	 public List<List<Integer>> subsets(int[] nums)
+	 {
+		 Arrays.sort(nums);
+		 return recsubset(nums, nums.length - 1);
+	 }
+	 public List<List<Integer>> recsubset(int[] nums, int k)
+	 {
+		 List<List<Integer>> res = new ArrayList<List<Integer>>();
+		 if(k == -1)
+			 res.add(new ArrayList<Integer>());
+		 else
+		 {
+			 List<List<Integer>> preres = recsubset(nums, k - 1);
+			 for(List<Integer> elem : preres)
+			 {
+				 res.add(elem);
+				 res.add(new ArrayList<Integer>(elem));
+				 elem.add(nums[k]);
+			 }
+		 }
+		 return res;
+	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	
 	
 	
