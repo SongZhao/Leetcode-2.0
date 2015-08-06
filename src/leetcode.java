@@ -223,7 +223,7 @@ public class leetcode {
 	//zig zag
 	//use direction var;
 	
-	//reverse integer
+	//  integer
 	//the reason we use MAX/10 instead of res*10, is the overflow will get wrong results.
 	
 	//convert string into int
@@ -1083,7 +1083,7 @@ public class leetcode {
 				 else
 				 {
 					 buff.add(candi[i]);
-					 getComSumII(candi, target - candi[i], i++, buff, res));
+					 getComSumII(candi, target - candi[i], i++, buff, res);
 					 buff.remove(buff.size() - 1);
 				 }
 					 
@@ -1361,7 +1361,7 @@ public class leetcode {
 			 }
 		 }
 		 return max;
-		 
+	 }
 		 //partition list
 		 //
 		 public ListNode partition(ListNode head, int x)
@@ -1412,14 +1412,35 @@ public class leetcode {
 				 if(isScramble(s1.substring(0,i), s2.substring(0, i)) &&
 						 isScramble(s1.substring(i),s2.substring(i)))
 						 return true;
-				 if(isScramble(s1.substring(0,i), s2.substring(s2.length() - i)) &&
+				 if(isScramble(s1.substring(0,i), s2.substring(s2.length() - i))  &&
 						 isScramble(s1.substring(i), s2.substring(s2.length() - i)))
 					 	return true;
 			 }
 			 return false;
 		 }
+		 
+		 //Merge sorted array
+		 //since we have enough space we can start to fill in from the end of the array where the value havent been initialized yet
+		 //so no data will be corrupt.
+		 public void merge(int[]A, int m, int[]B, int n)
+		 {
+			 while(m+n>0 && n!= 0) //terminates when both m and n r zero
+			 {
+				 A[m+n-1] = (m == 0 || A[m] <= B[n])? B[(n--)-1]:A[(m--)-1];
+			 }
+		 }
+		 
+		 //Decode ways
+		 //recursive    **use cache to reduce unnecessary calculation
+		 //1. is the string length == 0 or > 0 or > 1
+		 //2. if string length > 0, peel off first char and recursive compute
+		 // the following substring way+= numDecondings(s.substring(1))
+		 //3. if string length > 1 and the first char is 1 or 2 and the second char
+		 // is between 0 and 6.  in this case, if the length == 2, way += 1,
+		 //otherwise, way += numDecondings(s.substring(2));
+		 // use cache to reduce time.
 	 
-	 
+		 
 	 
 	
 	
