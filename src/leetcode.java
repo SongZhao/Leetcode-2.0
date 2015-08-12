@@ -1486,6 +1486,32 @@ public class leetcode {
 		    }
 	
 	
+		    public class Solution {
+		        public List<Integer> inorderTraversal(TreeNode root) {
+		            List<Integer> list = new ArrayList<Integer>();        
+		            if(root == null)
+		                return null;
+		            TreeNode tmpRoot = root;
+		            while(tmpRoot != null){
+		                TreeNode tmp = tmpRoot.left;
+		                if(tmp != null){
+		                    while(tmp.right != null && tmp.right != tmpRoot)
+		                        tmp = tmp.right;
+		                    if(tmp.right == null){
+		                        tmp.right = tmpRoot;
+		                        tmpRoot = tmpRoot.left;
+		                    }else{
+		                        list.add(tmpRoot.val);
+		                        tmpRoot = tmpRoot.right;
+		                    }
+		                }else{
+		                    list.add(tmpRoot.val);
+		                    tmpRoot = tmpRoot.right;
+		                }
+		            }
+		            return list;
+		        }
+		    }
 	
 	
 	
