@@ -1512,7 +1512,73 @@ public class leetcode {
 		            return list;
 		        }
 		    }
-	
+		    /*Binary Tree Inorder Traversal    //use stack
+	          // You accurately go left as far as possible, and when you can't go left, you move right once. However, 
+	           //you failed to note that since you've traversed left as far as possible, 
+	           //and use the right child when no lefts remain before you pop the next element up the tree, 
+	           //when you pop an element, that means its left child must have already been fully expanded 
+	            and does not need to be examined again.Therefore, instead of checking if you've seen it, just advance to 
+	            the right children. Becuase the right child is only checked after the parent has been popped from the stack, 
+	            so long as a node is only added once, no right child can have been expanded before.
+				As you know the left child must have been visited already at the time of a pop, and the right 
+				child has not been, there is no need for a map as those states will always remain true.*/
+	           public ArrayList<Integer> inorderTraversal(TreeNode curr) {
+	        	    Stack<TreeNode> todo = new Stack<TreeNode>();
+	        	    ArrayList<Integer> res = new ArrayList<Integer>();
+	        	    while(!todo.isEmpty() || curr != null){
+	        	        if(curr != null){
+	        	            todo.add(curr);
+	        	            curr = curr.left;
+	        	        }
+	        	        else{
+	        	            curr = (TreeNode)todo.pop();
+	        	            res.add(new Integer(curr.val));
+	        	            curr = curr.right;
+	        	        }
+	        	    }
+	        	    return res;
+	        	}
+	           
+	           
+	           //Unique Binary Search Trees   //rec with cache
+	           /**
+	            * Taking 1~n as root respectively:
+	            *      1 as root: # of trees = F(0) * F(n-1)  // F(0) == 1
+	            *      2 as root: # of trees = F(1) * F(n-2) 
+	            *      3 as root: # of trees = F(2) * F(n-3)
+	            *      ...
+	            *      n-1 as root: # of trees = F(n-2) * F(1)
+	            *      n as root:   # of trees = F(n-1) * F(0)
+	            *
+	            * So, the formulation is:
+	            *      F(n) = F(0) * F(n-1) + F(1) * F(n-2) + F(2) * F(n-3) + ... + F(n-2) * F(1) + F(n-1) * F(0)
+	            */
+	           public static int numTrees(int n)
+	           {
+	        	   int[] map = new int[n+1];
+	        	   return numTrees_helper(map, n);
+	           }
+	           public static int numTrees_helper(int[] map, int n)
+	           {
+	        	   if(map[n] != 0)
+	        		   return map[n];
+	        	   
+	        	   if(n < 2)
+	        	   {
+	        		   map[n] = 1;
+	        		   return 1;
+	        	   }
+	        	   
+	        	   int count = 0;
+	        	   
+	        	   for(int i = 1; i <= n; i++)
+	        	   {
+	        		   count += numTrees_helper(map, i-1)*numTrees_helper(map, n-i);
+	        	   }
+	        	   
+	        	   map[n] = count;
+	        	   return count;
+	          }
 	
 	
 	
