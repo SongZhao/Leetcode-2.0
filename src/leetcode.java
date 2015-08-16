@@ -1535,7 +1535,7 @@ public class leetcode {
 	        	            res.add(new Integer(curr.val));
 	        	            curr = curr.right;
 	        	        }
-	        	    }
+	        	    } 
 	        	    return res;
 	        	}
 	           
@@ -1579,9 +1579,65 @@ public class leetcode {
 	        	   map[n] = count;
 	        	   return count;
 	          }
+	          
+	           
+	           
+	         //same tree
+	           public boolean isSameTree(TreeNode p, TreeNode q) {
+	        	   if(p == null && q == null)
+	        		   return true;
+	        	   if(p != null && q != null)
+	        	   {
+	        	        if(isSameTree(p.left, q.left) && isSameTree(p.right, q.right) && (p.val == q.val))
+	        		         return true;
+	        	   }
+	        	   return false;
+	           }
 	
-	
-	
+	           //Symmetric Tree
+	           public boolean isSymmetric(TreeNode root)
+	           {
+	        	   if(root == null)
+	        	       return true;
+	        	   return isSym(root.left, root.right);
+	           }
+	           public boolean isSym(TreeNode p, TreeNode q)
+	           {
+	        	   if(p == null && q == null)
+	        		   return true;
+	        	   if(p != null && q != null)
+	        	   {
+	        	        if(isSym(p.left, q.right) && isSym(p.right, q.left) && (p.val == q.val))
+	        		         return true;
+	        	   }
+	        	   return false;
+	           }
+	           
+	           /*Binary Tree Level Order Traversal II */
+	           /*Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).*/
+	           /*iterative; breadth first*/
+	           public static List<List<Integer>> levelOrderBottom(TreeNode root) {
+	       		List<List<Integer>> result=new ArrayList<List<Integer>>();
+	           		if(root==null)
+	           		{
+	                   return result;
+	                }
+	           		Queue<TreeNode> cur =  new LinkedList<TreeNode>();
+	           		cur.offer(root);
+	           		while(cur.size()!=0){
+	           			Queue<TreeNode> parents = cur;
+	           			cur = new LinkedList<TreeNode>();
+	           			List<Integer> lvl = new ArrayList<Integer>();
+	           			for(TreeNode parent: parents)
+	           			{
+	           				lvl.add(parent.val);
+	           				if(parent.left!=null) cur.offer(parent.left);
+	           				if(parent.right!=null) cur.offer(parent.right);
+	           			}
+	           			result.add(lvl);
+	           		}
+	           		return result;
+	           }
 	
 	
 	
