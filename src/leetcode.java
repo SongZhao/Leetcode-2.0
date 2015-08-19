@@ -1683,7 +1683,31 @@ public class leetcode {
 	        	   return false;
 	           }
 	
-	
+	         //Recover Binary Search Tree
+	           static TreeNode m;
+	           static TreeNode n;
+	           static TreeNode mm;
+	           static boolean fistpair; //use to separate two different cases, one is two swapped nodes are beside each other, the other one is they r apart.
+	           static boolean finish;
+	           public void recoverTree(TreeNode root)
+	           {
+	        	   m=null;
+	        	   n=null;
+	        	   mm=null;
+	        	   fistpair=false;
+	        	   finish=false;
+	        	   recoverTreeCheck(root);
+	        	   if(finish){
+
+	        		   int tem=m.val;
+	        		   m.val=n.val;
+	        		   n.val=tem;
+	        	   }else{
+	        		   int tem=m.val;
+	        		   m.val=mm.val;
+	        		   mm.val=tem;
+	        	   }
+	           }
 	
 	
 	
