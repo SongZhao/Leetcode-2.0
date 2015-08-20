@@ -1708,6 +1708,32 @@ public class leetcode {
 	        		   mm.val=tem;
 	        	   }
 	           }
+	           
+	         //Construct Binary Tree from Preorder and Inorder;
+	           public TreeNode buildTree(int[] preorder, int inorder[])
+	           {
+	         	   Stack<TreeNode> sk=new Stack<TreeNode>();
+	        	   TreeNode pp=null, virtue=new TreeNode(Integer.MAX_VALUE), ptr;
+	        	   int i=0,j=0;
+	        	   sk.add(virtue);
+	        	   while(j < preorder.length){
+	        		   if(sk.peek().val==inorder[i]){
+	        			   pp=sk.pop();
+	        			   i++;
+	        		   }else if(pp!=null){
+	        			   ptr=new TreeNode(preorder[j++]); 
+	        			   pp.right=ptr;
+	        			   sk.push(ptr);
+	        			   pp = null;
+	        		   }else{
+	        			   ptr=new TreeNode(preorder[j++]);
+	        			   sk.peek().left=ptr;
+	        			   sk.push(ptr);
+	        			   
+	        		   }
+	        	   }
+	        	   return virtue.left;
+	           }
 	
 	
 	
