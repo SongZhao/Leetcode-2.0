@@ -1735,7 +1735,93 @@ public class leetcode {
 	        	   return virtue.left;
 	           }
 	
-	
+	           /*Construct Binary Tree from Inorder and Postorder Traversal */
+		       	/*Given inorder and postorder traversal of a tree, construct the binary tree. Note: You may assume that duplicates do not exist in the tree.*/
+		           static int pinorder, ppostorder;
+		           public static TreeNode buildTree2(int[] inorder, int[] postorder) {
+		        	   pinorder = inorder.length - 1;
+		        	   ppostorder = pinorder;
+		        	   return buildTree2(inorder, postorder, null);
+		           }
+		           public static TreeNode buildTree2(int[] inorder,int [] postorder, TreeNode end){
+		           		if(pinorder < 0)
+		           			return null;
+		           		TreeNode ptr = new TreeNode(postorder[ppostorder--]);
+		           		if(ptr.val != inorder[pinorder])
+		           			ptr.right = buildTree2(inorder, postorder, ptr);
+		           		pinorder--;
+		           		if(end == null || end.val != inorder[pinorder])
+		           			ptr.left = buildTree2(inorder, postorder, end);
+		           		return ptr;
+		           }
+		           
+		           //Convert Sorted Array to Binary Search Tree
+		           public TreeNode sortedArrayToBST(int[] num)
+		           {
+		        	   if(num.length == 0)
+		        	         return null;
+		        	   int length = num.length - 1;
+		        	   return dividing(0, length, num);
+		           }
+		           public TreeNode dividing(int start, int end, int[]num)
+		           {
+		        	   if(start == end)
+		        	   {
+		        	       return new TreeNode(num[end]);
+		        	   }
+		        	   if(start + 1 == end)
+		        	   {
+		        	       TreeNode s = new TreeNode(num[start]);
+		        	       TreeNode e = new TreeNode(num[end]);
+		        	       s.right = e;
+		        	       return s;
+		        	   }
+		        	   int mid = (start + end)/2;
+		        	   TreeNode root = new TreeNode(num[mid]);
+		        	   root.right = dividing(mid+1, end, num);
+		        	   root.left = dividing(start,mid-1, num);
+		        	   return root;
+		           }
+		           
+		           //Convert Sorted List to Binary Search Tree
+		           public TreeNode sortedListToBST(ListNode head)
+		           {
+		        	   if(head == null)
+		        		   	return null;
+		        	   List<Integer> list = new ArrayList<Integer>();
+		        	   while(head != null)
+		        	   {
+		        		   list.add(head.val);
+		        		   head = head.next;
+		        	   }
+		        	   int[] intarray = new int[list.size()];
+		        	   for(int i = 0; i < list.size(); i++)
+		        	   {
+		        		   intarray[i] = list.get(i);
+		        	   }
+		        	   
+		        	   int length = intarray.length - 1;
+		        	   return dividing2(0, length, intarray);
+		           }
+		           public TreeNode dividing2(int start, int end, int[]num)
+		           {
+		        	   if(start == end)
+		        	   {
+		        	       return new TreeNode(num[end]);
+		        	   }
+		        	   if(start + 1 == end)
+		        	   {
+		        	       TreeNode s = new TreeNode(num[start]);
+		        	       TreeNode e = new TreeNode(num[end]);
+		        	       s.right = e;
+		        	       return s;
+		        	   }
+		        	   int mid = (start + end)/2;
+		        	   TreeNode root = new TreeNode(num[mid]);
+		        	   root.right = dividing2(mid+1, end, num);
+		        	   root.left = dividing2(start,mid-1, num);
+		        	   return root;
+		           }
 	
 	
 	
