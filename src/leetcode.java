@@ -1580,6 +1580,37 @@ public class leetcode {
 	        	   return count;
 	          }
 	          
+	           //unique balance tree II   //rec
+	           public List<TreeNode> generateTreesII(int n)
+	           {
+	        	   return generateTreesII(1,n);
+	           }
+	           public List<TreeNode> generateTreesII(int start, int end)
+	           {
+	        	   List<TreeNode> trees = new ArrayList<TreeNode>();
+	        	   if (start > end)
+					{
+						trees.add(null);
+						return trees;
+					}
+					for(int rootvalue = start; rootvalue <= end; rootvalue++)
+					{
+						List<TreeNode> leftsubtree = generateTreesII(start, rootvalue - 1);
+						List<TreeNode> rightsubtree = generateTreesII(rootvalue+1,end);
+						
+						for(TreeNode leftnode : leftsubtree)
+						{
+							for(TreeNode rightnode : rightsubtree)
+							{
+								TreeNode root = new TreeNode(rootvalue);
+								root.left = leftnode;
+								root.right = rightnode;
+								trees.add(root);
+							}
+						}
+					}
+					return trees;
+	           }
 	           
 	           
 	         //same tree
@@ -1755,75 +1786,6 @@ public class leetcode {
 		           		return ptr;
 		           }
 		           
-		           //Convert Sorted Array to Binary Search Tree
-		           public TreeNode sortedArrayToBST(int[] num)
-		           {
-		        	   if(num.length == 0)
-		        	         return null;
-		        	   int length = num.length - 1;
-		        	   return dividing(0, length, num);
-		           }
-		           public TreeNode dividing(int start, int end, int[]num)
-		           {
-		        	   if(start == end)
-		        	   {
-		        	       return new TreeNode(num[end]);
-		        	   }
-		        	   if(start + 1 == end)
-		        	   {
-		        	       TreeNode s = new TreeNode(num[start]);
-		        	       TreeNode e = new TreeNode(num[end]);
-		        	       s.right = e;
-		        	       return s;
-		        	   }
-		        	   int mid = (start + end)/2;
-		        	   TreeNode root = new TreeNode(num[mid]);
-		        	   root.right = dividing(mid+1, end, num);
-		        	   root.left = dividing(start,mid-1, num);
-		        	   return root;
-		           }
-		           
-		           //Convert Sorted List to Binary Search Tree
-		           public TreeNode sortedListToBST(ListNode head)
-		           {
-		        	   if(head == null)
-		        		   	return null;
-		        	   List<Integer> list = new ArrayList<Integer>();
-		        	   while(head != null)
-		        	   {
-		        		   list.add(head.val);
-		        		   head = head.next;
-		        	   }
-		        	   int[] intarray = new int[list.size()];
-		        	   for(int i = 0; i < list.size(); i++)
-		        	   {
-		        		   intarray[i] = list.get(i);
-		        	   }
-		        	   
-		        	   int length = intarray.length - 1;
-		        	   return dividing2(0, length, intarray);
-		           }
-		           public TreeNode dividing2(int start, int end, int[]num)
-		           {
-		        	   if(start == end)
-		        	   {
-		        	       return new TreeNode(num[end]);
-		        	   }
-		        	   if(start + 1 == end)
-		        	   {
-		        	       TreeNode s = new TreeNode(num[start]);
-		        	       TreeNode e = new TreeNode(num[end]);
-		        	       s.right = e;
-		        	       return s;
-		        	   }
-		        	   int mid = (start + end)/2;
-		        	   TreeNode root = new TreeNode(num[mid]);
-		        	   root.right = dividing2(mid+1, end, num);
-		        	   root.left = dividing2(start,mid-1, num);
-		        	   return root;
-		           }
-	
-	
 	
 	
 	
