@@ -1,7 +1,5 @@
 
 import java.util.*;
-import java.util.Arrays;
-import java.util.HashSet;
 public class leetcode {
 //twosum
 	//3sum
@@ -16,27 +14,27 @@ public class leetcode {
 		if (num == null || num.length < 4)
 			return results;
 		
-		for(int i = 0; i < num.length -3; i++)
+		for(int i = 0; i < num.length -3; i++)  //first pointer from left scan to right
 		{
-			if(i > 0 && num[i] == num[i-1])
+			if(i > 0 && num[i] == num[i-1])  //Eliminate duplicates
 				continue;
-			for (int e = num.length -1; e >= i+3; e--)
+			for (int e = num.length -1; e >= i+3; e--) //second pointer from right to left
 			{
-				if(e < num.length -1 && num[e] == num[e+1])
+				if(e < num.length -1 && num[e] == num[e+1])  //Eliminate dup
 					continue;
 				
 				int j = i+1;
 				int k = e - 1;
-				int patial_sum = num[i] + num[e];
+				int patial_sum = num[i] + num[e];		//convert to 2sum problem.
 				while(j < k)
 				{
-					int patial_sum2 = num[j]+num[k];
-					if(j > i+1 && num[j] == num[j-1])
+					int patial_sum2 = num[j]+num[k];     
+					if(j > i+1 && num[j] == num[j-1])   //eliminate dup
 					{
 						j++;
 						continue;
 					}
-					if(k <e -1 && num[k] == num[k+1])
+					if(k <e -1 && num[k] == num[k+1])  //eliminate dup
 					{
 						k--;
 						continue;
@@ -1788,8 +1786,42 @@ public class leetcode {
 		           
 	
 	
-	
-	
+		     ////new 
+		     //Best meeting point
+		           public int minTotalDIstance(int[][] grid)
+		           {
+		        	   int m = grid.length;
+		        	   int n = grid[0].length;
+		        	   
+		        	   List<Integer> I = new ArrayList<>(m);
+		        	   List<Integer> J = new ArrayList<>(n);
+		        	   
+		        	   for(int i = 0; i <  m; i++)
+		        	   {
+		        		   for(int j = 0; j < m; j++)
+		        		   {
+		        			   if(grid[i][j] == 1)
+			        			   	I.add(i);
+			        		   		J.add(j);
+		        		   }
+		        	   }
+		        	   return getMin(I) + getMin(J);
+		           }
+		           private int getMin(List<Integer> list)
+		           {
+		        	   int ret = 0;
+		        	   Collections.sort(list);
+		        	   int i = 0;
+		        	   int j = list.size() - 1;
+		        	   while(i < j)
+		        	   {
+		        		   ret += list.get(j--) + list.get(i++);
+		        	   }
+		        	   return ret;
+		           }
+		           
+		           
+		           https://leetcode.com/discuss/63252/share-my-java-backtracking-solution
 	
 	
 	
