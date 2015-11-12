@@ -1579,13 +1579,15 @@ public class leetcode {
 	          }
 	          
 	           //unique balance tree II   //rec
+	           //
 	           public List<TreeNode> generateTreesII(int n)
 	           {
 	        	   return generateTreesII(1,n);
 	           }
 	           public List<TreeNode> generateTreesII(int start, int end)
 	           {
-	        	   List<TreeNode> trees = new ArrayList<TreeNode>();
+	        	   List<TreeNode> trees = new ArrayList<TreeNode>();//create a new list everytime we call this function
+	        	   //this recursive function works from base to top.
 	        	   if (start > end)
 					{
 						trees.add(null);
