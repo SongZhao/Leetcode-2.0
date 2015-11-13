@@ -592,4 +592,55 @@ public class all_kinds_of_tree_problems {
 	            sumNumbers(root.left, pre,res);
 	            sumNumbers(root.right,pre,res);
 	        }
+	        
+	        
+	        //Serialize and Deserialize Binary Tree
+	        // Encodes a tree to a single string.
+	        public String serialize(TreeNode root) {
+	            StringBuilder str = new StringBuilder();
+
+	            helperSerialize(root, str);
+	            return str.toString();
+	        }
+	        //print the tree in string using pre order
+	        private void helperSerialize(TreeNode root, StringBuilder str){
+	            if(root == null) {
+	                str.append("null").append(",");
+	                return;
+	            }
+
+	            str.append(root.val).append(",");
+	            helperSerialize(root.left, str);
+	            helperSerialize(root.right, str);
+	        }
+
+	        int index = -1; //global variable to maintain the current index in deserialization
+	        // Decodes your encoded data to tree.
+	        public TreeNode deserialize(String data) {
+	            TreeNode result = null;
+
+	            if(data.length() == 0) return result;
+
+	            String[] buf = data.split(",");
+	            result = helper(buf);
+
+	            return result;
+	        }
+
+	        private TreeNode helper(String[] buf){
+	            if(index >= buf.length) return null;	//base case
+	            TreeNode root = null;  //if the corresponding node in the buf is null
+	            						//we wont do any more recursive calls
+	            						//thus just return the node as null
+
+	            index++;   //we set index = -1 at begging to save all the trouble
+	            		   //because everytime we call this function we need to increase index by 1.
+	            if(!buf[index].equals("null")) {
+	                root = new TreeNode(Integer.parseInt(buf[index]));
+	                root.left = helper(buf);			//we are return a node at corresponding index at a time
+	                root.right = helper(buf);			//	and its just the way pre-order sorted.
+	            }
+
+	            return root;
+	        }
 }
