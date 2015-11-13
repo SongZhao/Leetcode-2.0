@@ -684,4 +684,121 @@ public class all_kinds_of_tree_problems {
 	            									//notice that it returns itself, not the value returned from 
 	            									//child recursive calls.
 	        }
+	        
+	        //Count Complete Tree Nodes    time complexity log(n), because it only iterate the 
+	        //number of node of a full complete binary tree 2^(depth)-1;
+	        //number of node of a layer is 2^level;
+	        public int countNodes(TreeNode root) {
+
+	            int leftDepth = leftDepth(root);
+	            int rightDepth = rightDepth(root);
+
+	            if (leftDepth == rightDepth)
+	                return (1 << leftDepth) - 1;  //1<<leftDepth = 2^leftDepth
+	            else
+	                return 1+countNodes(root.left) + countNodes(root.right);
+
+	        }
+
+	        private int rightDepth(TreeNode root) {
+	            // TODO Auto-generated method stub
+	            int dep = 0;
+	            while (root != null) {
+	                root = root.right;
+	                dep++;
+	            }
+	            return dep;
+	        }
+
+	        private int leftDepth(TreeNode root) {
+	            // TODO Auto-generated method stub
+	            int dep = 0;
+	            while (root != null) {
+	                root = root.left;
+	                dep++;
+	            }
+	            return dep;
+	        }
+	        
+	        //Binary Tree Upside Down
+	        //Given a binary tree where all the right nodes are either leaf nodes 
+	        //with a sibling (a left node that shares the same parent node) or 
+	        //empty, flip it upside down and turn it into a tree where the original right nodes turned into 
+	        //left leaf nodes. Return the new root.
+	        //要点是任何一个right child都不会再有child
+	        //用recursion，颠倒leftsub tree然后这个subtree的root.left指向他的parent，root.right指向和
+	        //和他同level的right node.
+	        public TreeNode UpsideDownBinaryTree(TreeNode root)
+	        {
+	        	if(root == null)
+	        		return null;
+	        	TreeNode parent = root, left = root.left, right = root.right;
+	        	while(left != null)
+	        	{
+	        		TreeNode rev = UpsideDownBinaryTree(left);
+	        		left.left = parent;
+	        		left.right = right;
+	        		return rev;  
+	        	}
+	        	return root;
+	        }
+	        
+	        //Closest Binary Search Tree Value
+	        public int closestValue(TreeNode root, double target) 
+	        {
+	            int closestVal = root.val; 
+	            while(root != null)
+	            { 
+	                //update closestVal if the current value is closer to target
+	                closestVal = (Math.abs(target - root.val) < Math.abs(target - closestVal))? root.val : closestVal;
+	                if(closestVal == target)
+	                {   //already find the best result
+	                    return closestVal;
+	                }
+	                root = (root.val > target)? root.left: root.right;   //choose to go left/right since its a binary tree.
+	            }
+	            return closestVal;
+	      }
+	        //Kth closest Binary Search Tree Value
+	        /*The idea is to compare the predecessors and successors of the closest node to the target, 
+	         * we can use two stacks to track the predecessors and successors, then like what we do in 
+	         * merge sort, we compare and pick the closest one to the target and put it to the result list.
+				As we know, inorder traversal gives us sorted predecessors, whereas reverse-inorder 
+				traversal gives us sorted successors.
+			*/
+	        
+	        public List<Integer> closestKValues(TreeNode root, double target, int k) {
+	        	  List<Integer> res = new ArrayList<>();
+
+	        	  Stack<Integer> s1 = new Stack<>(); // predecessors
+	        	  Stack<Integer> s2 = new Stack<>(); // successors
+
+	        	  inorder(root, target, false, s1);
+	        	  inorder(root, target, true, s2);
+
+	        	  while (k-- > 0) {
+	        	    if (s1.isEmpty())
+	        	      res.add(s2.pop());
+	        	    else if (s2.isEmpty())
+	        	      res.add(s1.pop());
+	        	    else if (Math.abs(s1.peek() - target) < Math.abs(s2.peek() - target))
+	        	      res.add(s1.pop());
+	        	    else
+	        	      res.add(s2.pop());
+	        	  }
+
+	        	  return res;
+	        	}
+
+	        	// inorder traversal
+	        	void inorder(TreeNode root, double target, boolean reverse, Stack<Integer> stack) {
+	        	  if (root == null) return;
+
+	        	  inorder(reverse ? root.right : root.left, target, reverse, stack);
+	        	  // early terminate, no need to traverse the whole tree
+	        	  if ((reverse && root.val <= target) || (!reverse && root.val > target)) return;
+	        	  // track the value of current node
+	        	  stack.push(root.val);
+	        	  inorder(reverse ? root.left : root.right, target, reverse, stack);
+	        	}
 }
