@@ -790,15 +790,62 @@ public class all_kinds_of_tree_problems {
 	        	  return res;
 	        	}
 
-	        	// inorder traversal
-	        	void inorder(TreeNode root, double target, boolean reverse, Stack<Integer> stack) {
-	        	  if (root == null) return;
+        	// inorder traversal
+        	void inorder(TreeNode root, double target, boolean reverse, Stack<Integer> stack) {
+        	  if (root == null) return;
 
-	        	  inorder(reverse ? root.right : root.left, target, reverse, stack);
-	        	  // early terminate, no need to traverse the whole tree
-	        	  if ((reverse && root.val <= target) || (!reverse && root.val > target)) return;
-	        	  // track the value of current node
-	        	  stack.push(root.val);
-	        	  inorder(reverse ? root.left : root.right, target, reverse, stack);
-	        	}
+        	  inorder(reverse ? root.right : root.left, target, reverse, stack);
+        	  // early terminate, no need to traverse the whole tree
+        	  if ((reverse && root.val <= target) || (!reverse && root.val > target)) return;
+        	  // track the value of current node
+        	  stack.push(root.val);
+        	  inorder(reverse ? root.left : root.right, target, reverse, stack);
+        	}
+        	
+        	
+        	
+        	//Binary Tree Longest Consecutive Sequence
+        	//use DFS
+        	private int max = 0;
+            public int longestConsecutive(TreeNode root) {
+                if(root == null) return 0;
+                helper(root, 0, root.val);
+                return max;
+            }
+
+            public void helper(TreeNode root, int cur, int target){
+                if(root == null) return;
+                if(root.val == target) cur++;
+                else cur = 1;				//change the current length back to 1 everytime we get a non-consecutive seq
+                max = Math.max(cur, max);
+                helper(root.left, cur, root.val + 1);
+                helper(root.right, cur, root.val + 1);
+            }
+            
+            //count Count Univalue Subtrees
+            //a leaf can be a sub tree itself;
+            //a univalue subtree's root.val = root.left.val = root.right.val
+            public int countUnivalSubtrees(TreeNode root) {
+                if (root == null) {
+                    return 0;
+                }
+                int[] counter = new int[1];
+                count(root, counter, root.val);
+                return counter[0];
+            }
+
+            private boolean count(TreeNode root, int[] counter, int val) {
+                if (root == null) {
+                    return true;
+                }
+                boolean l = count(root.left, counter, root.val);
+                boolean r = count(root.right, counter, root.val);
+
+                if (l && r) {
+                    counter[0]++;
+                }
+
+                return l && r && root.val == val;
+            }
+
 }
