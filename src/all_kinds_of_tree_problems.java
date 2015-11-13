@@ -643,4 +643,45 @@ public class all_kinds_of_tree_problems {
 
 	            return root;
 	        }
+	        
+	        
+	        //Lowest Common Ancestor of a Binary Search Tree
+	        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+	            //since its a binary tree, and the LCA is somewhere in the shortest path
+	            //thus it cant be smaller/larger than both of the target node.
+	            
+	            
+	            if(root.val<Math.min(p.val,q.val)) 
+	                return lowestCommonAncestor(root.right,p,q);
+	            if(root.val>Math.max(p.val,q.val)) 
+	                return lowestCommonAncestor(root.left,p,q);
+	            return root;
+
+	        }
+	      //Lowest Common Ancestor of a Binary  Tree
+	        //the key to this question is that one node must be in the left sub tree
+	        //and another one must be in the right sub tree.
+	        //so we r finding a node that fits this character or itself = p or q.
+	        public TreeNode lowestCommonAncestorII(TreeNode root, TreeNode p, TreeNode q) {
+	            if(root == null)
+	                 return null ;
+	            TreeNode left = lowestCommonAncestorII(root.left, p, q);
+	            TreeNode right = lowestCommonAncestorII(root.right, p, q);
+	            //if we find a root = p or q, then it must be LCA
+	            //or its a node in LCA's path
+	            if(root == p || root == q)	
+	                return root;
+	            
+	            //use to keep propagate the recursive function
+	            if(left != null && right == null)
+	                return left;
+	            else if(left == null && right != null)
+	                return right;
+	            else if(left == null && right == null)//this means a dead end, there is no q or p in this branch.
+	                return null;
+	            else                                //else left sub tree would contain a node
+	                return root;                    //and right sub tree would contain another.
+	            									//notice that it returns itself, not the value returned from 
+	            									//child recursive calls.
+	        }
 }
