@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -410,6 +411,7 @@ public class all_kinds_of_tree_problems {
                 }
             }
         }
+        
         //Binary Search Tree Iterator
         //its like a in-order traversal
         Stack<TreeNode> stack;
@@ -564,6 +566,7 @@ public class all_kinds_of_tree_problems {
 	                dummyHead.next = null;	//pre and dummyhead is now pointed to nothing.
 	            }
 	        }
+	    }
 	        
 	        //Sum Root to Leaf Numbers
 	        //regular routine, the base case is at leaf which is 
