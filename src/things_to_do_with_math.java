@@ -140,5 +140,63 @@ public class things_to_do_with_math {
         }
         return num % 9 == 0 ? 9 : (num % 9);
     }
+	
+	//Ugly Number
+	/*Write a program to check whether a given number is an ugly number.
+
+	Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. For example, 6, 8 are ugly while 14 is not ugly since it includes another prime factor 7.
+
+	Note that 1 is typically treated as an ugly number.*/
+	public boolean isUgly(int num) {
+        //num = Math.abs(num);
+        if(num == 0)
+            return false;
+        while(num%2 == 0 || num%3 == 0 || num%5 == 0)
+        {
+            if(num%2 == 0)
+                num = num/2;
+            if(num%3 == 0)
+                num = num/3;
+            if(num%5 == 0)
+                num = num/5;
+        }
+        if(num == 1)
+            return true;
+        else
+            return false;
+    }
+	
+	//Best Meeting Point 
+	/*A group of two or more people wants to meet and minimize the total travel distance. You are given a 2D grid of values 0 or 1, where each 1 marks the home of someone in the group. The distance is calculated using Manhattan Distance, where distance(p1, p2) = |p2.x - p1.x| + |p2.y - p1.y|.
+			For example, given three people living at (0,0), (0,4), and (2,2):
+			1 - 0 - 0 - 0 - 1
+			|   |   |   |   |
+			0 - 0 - 0 - 0 - 0
+			|   |   |   |   |
+			0 - 0 - 1 - 0 - 0*/
+	public int minTotalDistance(int[][] grid) {
+        List<Integer> ipos = new ArrayList<Integer>();
+        List<Integer> jpos = new ArrayList<Integer>();
+        // 统计出有哪些横纵坐标
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[0].length; j++){
+                if(grid[i][j] == 1){
+                    ipos.add(i);
+                    jpos.add(j);
+                }
+            }
+        }
+        int sum = 0;
+        // 计算纵坐标到纵坐标中点的距离，这里不需要排序，因为之前统计时是按照i的顺序
+        for(Integer pos : ipos){
+            sum += Math.abs(pos - ipos.get(ipos.size() / 2));
+        }
+        // 计算横坐标到横坐标中点的距离，这里需要排序，因为统计不是按照j的顺序
+        Collections.sort(jpos);
+        for(Integer pos : jpos){
+            sum += Math.abs(pos - jpos.get(jpos.size() / 2));
+        }
+        return sum;
+    }
 			
 }
