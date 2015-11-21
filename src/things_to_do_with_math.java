@@ -216,16 +216,16 @@ public class things_to_do_with_math {
 	        if(points.length <= 2) return points.length;
 	        int result = 0;
 	        for(int i = 0; i < points.length; i++){
-	            HashMap<Double, Integer> hm = new HashMap<Double, Integer>();
-	            int samex = 1;
+	            HashMap<Double, Integer> hm = new HashMap<Double, Integer>(); //we initialate new hashmap and samex,samep for 
+	            int samex = 1;												// every new loop which is for every node 
 	            int samep = 0;
 	            for(int j = 0; j < points.length; j++){
 	                if(j != i){
 	                    if((points[j].x == points[i].x) && (points[j].y == points[i].y)){
-	                        samep++;
+	                        samep++;     //record duplicated points number
 	                    }
 	                    if(points[j].x == points[i].x){
-	                        samex++;
+	                        samex++;	//record if two points r in the same vertical line since the slope is in-calculable.
 	                        continue;
 	                    }
 	                    double k = (double)(points[j].y - points[i].y) / (double)(points[j].x - points[i].x);
@@ -242,5 +242,14 @@ public class things_to_do_with_math {
 	        return result;
 	    }
 	}
+	
+	//single number
+	 public int singleNumber(int[] nums) {
+	        int res = nums[0];
+	        for (int i = 1; i < nums.length; i++)
+	            res = res ^ nums[i];
+
+	        return res;
+	    }
 			
 }
