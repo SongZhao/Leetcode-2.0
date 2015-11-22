@@ -158,7 +158,7 @@ public class things_to_do_with_hashtable {
 	              //to make the map size reduce to k again
 	              while (map.size() > k) 
 	              {  
-	                  char startChar = s.charAt(start++);  
+	                  char startChar = s.charAt(start++); //move the start index one slot forward. 
 	                  int count = map.get(startChar);  
 	                  if (count > 1) 
 	                  {  
@@ -231,48 +231,106 @@ public class things_to_do_with_hashtable {
 	  
 	  //treeset will maintain the order of element by the time being added, thus we can always maintain a treeSet with size K
 	  //its like a sliding window and 
-	  public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
-		    if (nums == null || nums.length == 0) return false;
-		    TreeSet<Long> set = new TreeSet<>();
-		    set.add((long) nums[0]);
-		    for (int i = 1; i < nums.length; i++) {
-		        if (i > k) set.remove((long) nums[i - k - 1]);
-		        long left = (long) nums[i] - t;
-		        long right = (long) nums[i] + t;
-		        if (left <= right && !set.subSet(left, right + 1).isEmpty()) 
-		        	return true;  //use subset(elment,elment) to see if any set value lie in that range.
-		        set.add((long) nums[i]);
-		    }
+	  public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) 
+	  {
+	    if (nums == null || nums.length == 0) return false;
+	    TreeSet<Long> set = new TreeSet<>();
+	    set.add((long) nums[0]);
+	    for (int i = 1; i < nums.length; i++) {
+	        if (i > k) set.remove((long) nums[i - k - 1]);
+	        long left = (long) nums[i] - t;
+	        long right = (long) nums[i] + t;
+	        if (left <= right && !set.subSet(left, right + 1).isEmpty()) 
+	        	return true;  //use subset(elment,elment) to see if any set value lie in that range.
+	        set.add((long) nums[i]);
+	    }
 		    return false;
+	  }
 
-		    //we can use array like hashtable sometimes.
-		    //Count Primes
-			 //Count the number of prime numbers less than a non-negative number, n.
-			 public int countPrimes(int n) 
-			    {
-			        int res = 0;
-			        boolean[] used = new boolean[n];
-			        for (int i = 2; i <= Math.sqrt(n); i++) 
-			        {
-			         if (!used[i - 1]) 
-			         {
-			            int temp = i * i;
-			            while (temp < n) 
-			            {
-			                used[temp - 1] = true;
-			                temp += i;
-			            }
-			         }
-			        }
-			        for (int i = 2; i < n; i++) 
-			        {
-			        if (!used[i - 1])
-			        {
-			            res++;
-			        }
-			        }
-			        return res;
-			    }
+    //we can use array like hashtable sometimes.
+    //Count Primes
+	 //Count the number of prime numbers less than a non-negative number, n.
+	 public int countPrimes(int n) 
+	    {
+	        int res = 0;
+	        boolean[] used = new boolean[n];
+	        for (int i = 2; i <= Math.sqrt(n); i++) 
+	        {
+	         if (!used[i - 1]) 
+	         {
+	            int temp = i * i;
+	            while (temp < n) 
+	            {
+	                used[temp - 1] = true;
+	                temp += i;
+	            }
+	         }
+	        }
+	        for (int i = 2; i < n; i++) 
+	        {
+	        if (!used[i - 1])
+	        {
+	            res++;
+	        }
+	        }
+	        return res;
+	    }
+	 
+	 //Minimum Window Substring
+	 public String minWindow(String s, String t) {
+		    if(s == null || s.length() < t.length() || s.length() == 0){
+		        return "";
+		    }
+		    HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+		    for(char c : t.toCharArray())
+		    {
+		        if(map.containsKey(c))
+		        {
+		            map.put(c,map.get(c)+1);
+		        }else
+		        {
+		            map.put(c,1);
+		        }
+		    }
+		    int left = 0;
+		    int minLeft = 0;
+		    int minLen = s.length()+1;
+		    int count = 0;
+		    for(int right = 0; right < s.length(); right++)
+		    {
+		        if(map.containsKey(s.charAt(right)))
+		        {
+		            map.put(s.charAt(right),map.get(s.charAt(right))-1);
+		            if(map.get(s.charAt(right)) >= 0)
+		            {
+		                count ++;     //this count is the record if we have included all char from t in current substring
+		            }
+		            while(count == t.length())	//means current substring has t in it, now we can update the length.
+		            {
+		                if(right-left+1 < minLen)
+		                {
+		                    minLeft = left;
+		                    minLen = right-left+1;
+		                }
+		                if(map.containsKey(s.charAt(left)))
+		                {
+		                    map.put(s.charAt(left),map.get(s.charAt(left))+1); //since we will increace left, which means we r removing char from the substring
+		                    if(map.get(s.charAt(left)) > 0)						//so if the char is in t, we have to add t back into the map.
+		                    {													//and if this key's value is larger than 0, means we doesnt't have enough char in the substring.
+		                        count --;			
+		                    }
+		                }
+		                left ++ ;
+		            }
+		        }
+		    }
+		    if(minLen>s.length())  
+		    {  
+		        return "";  
+		    }  
+
+		    return s.substring(minLeft,minLeft+minLen);
+		}
 		  
 	
 }
