@@ -228,11 +228,11 @@ public class things_to_do_with_math {
 	                        samex++;	//record if two points r in the same vertical line since the slope is in-calculable.
 	                        continue;
 	                    }
-	                    double k = (double)(points[j].y - points[i].y) / (double)(points[j].x - points[i].x);
-	                    if(hm.containsKey(k)){
+	                    double k = (double)(points[j].y - points[i].y) / (double)(points[j].x - points[i].x); //this is actually reverse slope since we handled x1=x2 already
+	                    if(hm.containsKey(k)){											
 	                        hm.put(k,hm.get(k) + 1);
 	                    }else{
-	                        hm.put(k, 2);
+	                        hm.put(k, 2);  //this slope has two points to form a line
 	                    }
 	                    result = Math.max(result, hm.get(k) + samep);
 	                }
@@ -247,7 +247,7 @@ public class things_to_do_with_math {
 	 public int singleNumber(int[] nums) {
 	        int res = nums[0];
 	        for (int i = 1; i < nums.length; i++)
-	            res = res ^ nums[i];
+	            res = res ^ nums[i];    //same number XOR　it self = 0
 
 	        return res;
 	    }

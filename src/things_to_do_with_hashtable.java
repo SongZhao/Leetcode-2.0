@@ -292,7 +292,7 @@ public class things_to_do_with_hashtable {
 		            map.put(c,1);
 		        }
 		    }
-		    int left = 0;
+		    int left = 0;							//double pointer
 		    int minLeft = 0;
 		    int minLen = s.length()+1;
 		    int count = 0;
@@ -332,5 +332,16 @@ public class things_to_do_with_hashtable {
 		    return s.substring(minLeft,minLeft+minLen);
 		}
 		  
+	 
+	 //Repeated DNA Sequences
+	 public List<String> findRepeatedDnaSequences(String s) {
+		    Set seen = new HashSet(), repeated = new HashSet();
+		    for (int i = 0; i + 9 < s.length(); i++) {
+		        String ten = s.substring(i, i + 10);
+		        if (!seen.add(ten))
+		            repeated.add(ten);
+		    }
+		    return new ArrayList(repeated);
+		}
 	
 }
