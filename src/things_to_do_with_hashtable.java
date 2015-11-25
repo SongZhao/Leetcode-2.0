@@ -343,5 +343,23 @@ public class things_to_do_with_hashtable {
 		    }
 		    return new ArrayList(repeated);
 		}
+	 //Valid Anagram
+	 //we can convert the string into char[] and sort them then compare, but the array.sort function in java 
+	 //	cost nlogn. while use this method its just n + t
+	 // this method is the same method as in Bulls and Cows in things to do with math java.
+	 public boolean isAnagram(String s, String t) {
+         if (s.length() != t.length() ) return false;
+    int[] alphabet = new int[26];
+   
+    for(int i = 0; i < s.length(); i++) {
+        alphabet[s.charAt(i) - 'a']++;
+    }
+    for(int i = 0; i < t.length(); i++) {
+        alphabet[t.charAt(i) - 'a']--;
+        if(alphabet[t.charAt(i) -'a'] < 0) return false;
+    }
+    return true;
+
+    }
 	
 }
