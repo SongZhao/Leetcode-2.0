@@ -362,6 +362,8 @@ public class things_to_do_with_hashtable {
 
     }
 	 
+	 
+	 //valid sudoku
 	/* Collect the set of things we see, encoded as strings. For example:
 
 		 '4' in row 7 is encoded as "(4)7".
