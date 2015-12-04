@@ -193,4 +193,59 @@ public class trie {
 	// WordDictionary wordDictionary = new WordDictionary();
 	// wordDictionary.addWord("word");
 	// wordDictionary.search("pattern");
+	
+	
+	
+	//Word Search II
+	 public void dfs(Trie trie, Set<String> set, int i, int j, char[][] board, String word, boolean[][] visited){
+	        if(i<0 || j<0 || i>board.length-1 || j> board[0].length-1 || visited[i][j]) return;
+
+	        //get the current stream of the word
+	        word += board[i][j];
+
+	        //for a particular path we take in the graph, we make sure we dont revisit them in the following recurrences
+	        visited[i][j] = true;
+
+	        //search the trie for the word
+	        SearchResult result = trie.search(word);
+
+	        //if considering the word as a prefix fails, then there is no use to proceed, so we terminate
+	        if(result == SearchResult.NOT_FOUND){ 
+	            //reset visited to false
+	            visited[i][j] = false;
+	            return;
+	        }//if the word itself was found, then add it to the set
+	        else if(result == SearchResult.WORD_FOUND) set.add(word);
+
+	        //now perform DFS
+	        dfs(trie, set, i-1, j, board, word, visited);
+	        dfs(trie, set, i+1, j, board, word, visited);
+	        dfs(trie, set, i, j-1, board, word, visited);
+	        dfs(trie, set, i, j+1, board, word, visited);                
+
+	        //reset visited to false
+	        visited[i][j] = false;
+	    }
+
+	    public List<String> findWords(char[][] board, String[] words) {
+	        if(board.length == 0 || words.length == 0 || board[0].length == 0) return new ArrayList<String>();
+	        int rows = board.length;
+	        int cols = board[0].length;
+	        boolean[][] visited = new boolean[rows][cols];
+	        Set<String> set = new HashSet<>();
+
+	        //create a trie with all of the input words   
+	        Trie trie = new Trie();
+	        trie.addWords(words);
+
+	        //perform DFS from every point in the board
+	        for(int i=0;i<rows;i++){
+	            for(int j=0;j<cols;j++){
+	                dfs(trie, set, i, j, board, "", visited);    
+	            }
+	        }        
+
+	        //return the list
+	        return new ArrayList<String>(set);
+	    }
 }
