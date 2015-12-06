@@ -126,7 +126,7 @@ public class things_to_do_with_linkedlist {
             return lists[0];
         }
         while (len>1){
-            for (int i=0;i<len/2;i++){
+            for (int i=0;i<len/2;i++){					//use something like binary search.
                 lists[i] = mergeTwList(lists[i],lists[len-1-i]);
             }
             len = (len/2+len%2);
@@ -149,6 +149,77 @@ public class things_to_do_with_linkedlist {
         else {
             b.next = mergeTwList(a,b.next);
             return b;
+        }
+    }
+    
+    //swap node in pairs
+    //Given 1->2->3->4, you should return the list as 2->1->4->3.
+    //Your algorithm should use only constant space. You may not modify the values in the list, 
+    //only nodes itself can be changed.
+    public ListNode swapPairs(ListNode head) {
+        if(head == null || head.next == null)
+            return head;
+        //create a two reference nodes and a dummy node.
+        ListNode p = new ListNode(0);
+        p.next = head;
+        ListNode left = p;
+        ListNode right = head;
+        
+
+        while(right != null && right.next != null)
+        {
+            ListNode tmp = new ListNode(0);
+            ListNode tmp2 = new ListNode(0);
+            tmp = right.next;
+            tmp2 = tmp.next;
+            
+            left.next = tmp;
+            tmp.next = right;
+            right.next = tmp2;
+            right = right.next;     //right node only needs to move one slot
+            left = left.next.next;  //left node needs to move two slot
+        }
+        return p.next;      
+    }
+    
+    //Reverse Nodes in k-group
+    //Given this linked list: 1->2->3->4->5
+    //For k = 2, you should return: 2->1->4->3->5
+    //For k = 3, you should return: 3->2->1->4->5
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode v = new ListNode(0);
+        ListNode p = v;
+        p.next = head;
+        ListNode s1, s2;
+        ListNode end = head;
+        if(head == null || k == 1)
+            return head;
+        while(true)
+        {
+            int i = k;
+            while(i > 0)
+            {
+                if(end == null)
+                    return v.next;
+                end = end.next;
+                i--;
+                if(end == null && i != 0)
+                    return v.next;
+            }       
+            s1 = p.next;
+            while(s1.next != end)
+            {
+                s2 = s1;
+                while(s2.next.next != end)
+                {
+                    s2 = s2.next;
+                }
+                p.next = s2.next;
+                p.next.next = s1;
+                s2.next = end;
+                p = p.next;
+            }
+            p = s1;
         }
     }
 }
