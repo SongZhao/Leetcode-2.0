@@ -92,4 +92,63 @@ public class things_to_do_with_linkedlist {
         second.next = second.next.next;
         return head;
     }
+    
+    //Merge two lists
+    public ListNode mergeTwoLists(ListNode a, ListNode b) {
+        if (a==null)
+        {
+	     return b;
+        }
+		 if (b==null)
+		 {
+		     return a;
+		 }
+		 if (a.val<b.val)
+		 {
+		     a.next = mergeTwoLists(a.next,b);
+		     return a;
+		 }
+		 else 
+		 {
+		     b.next = mergeTwoLists(a,b.next);
+		     return b;
+		 }
+	 }
+    
+    //Merge k lists
+    public ListNode mergeKLists(ListNode[] lists) 
+    {
+        int len = lists.length;
+        if (len==0){
+            return null;
+        }
+        if (len==1){
+            return lists[0];
+        }
+        while (len>1){
+            for (int i=0;i<len/2;i++){
+                lists[i] = mergeTwList(lists[i],lists[len-1-i]);
+            }
+            len = (len/2+len%2);
+        }
+        return lists[0];
+    }
+
+    public ListNode mergeTwList(ListNode a,ListNode b)
+    {
+        if (a==null){
+            return b;
+        }
+        if (b==null){
+            return a;
+        }
+        if (a.val<b.val){
+            a.next = mergeTwList(a.next,b);
+            return a;
+        }
+        else {
+            b.next = mergeTwList(a,b.next);
+            return b;
+        }
+    }
 }
