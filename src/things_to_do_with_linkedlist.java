@@ -222,4 +222,46 @@ public class things_to_do_with_linkedlist {
             p = s1;
         }
     }
+    
+    //rotate list
+    public ListNode rotateRight(ListNode head, int k) 
+    {
+        if(head == null)
+            return head;
+        ListNode v = new ListNode(0);
+        ListNode first = v, second = v;
+        v.next = head;
+        int len = 0;
+        int n = k;
+        while(k > 0) //varify the k value.
+        {
+            if(first.next == null) //handle the case where k is larger than the list size, and we dont have a system method for the list size so we gonna count by our own.
+            {
+                k %= len;
+                n = k;
+                first = v;
+                break;
+            }
+            first = first.next;
+            
+            len ++;
+            k--;
+        }
+        if(first.next == null) //handle the case which we dont have to move the list at all.
+            return head;
+        while(k>0)       //in linked list, if we want to modify ith node, we would like to make the pointer points to the (i-1)th node. 
+        {
+            first = first.next;
+            k--;
+        }
+        while(first.next != null)
+        {
+            first = first.next;
+            second = second.next;
+        }
+        first.next = v.next;
+        v.next = second.next;
+        second.next = null;
+        return v.next;
+    }
 }
