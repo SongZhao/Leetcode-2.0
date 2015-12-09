@@ -310,4 +310,27 @@ public class things_to_do_with_linkedlist {
         }
         return v.next;
     }
+    
+    //Partition list
+    public ListNode partition(ListNode head, int x) {
+        ListNode v = new ListNode(0), v2 = new ListNode(0);
+        ListNode ptr = v, ptr2 = v2;
+        while(head != null)
+        {
+            if(head.val < x)
+            {
+                ptr.next = head;
+                ptr = ptr.next;
+            }
+            else
+            {
+                ptr2.next = head;
+                ptr2 = ptr2.next;
+            }
+            head = head.next;
+        }
+        ptr.next = v2.next;
+        ptr2.next = null;
+        return v.next;
+    }
 }
