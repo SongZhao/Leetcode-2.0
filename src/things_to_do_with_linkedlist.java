@@ -264,4 +264,50 @@ public class things_to_do_with_linkedlist {
         second.next = null;
         return v.next;
     }
+    
+    //remove duplicates
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null)
+            return null;
+        ListNode notDuplic = head;
+        ListNode index = head.next;
+        
+        while(index != null)
+        {
+            if(notDuplic.val != index.val)
+            {
+                notDuplic.next =index;
+                notDuplic = index;
+            }
+            index = index.next;
+        }
+        notDuplic.next = null;
+        return head;
+    }
+    
+    
+    //Remove duplicates II
+    //Given 1->2->3->3->4->4->5, return 1->2->5.
+    //Given 1->1->1->2->3, return 2->3.
+    public ListNode deleteDuplicates(ListNode head) {
+       if(head == null)
+            return null;
+        ListNode v = new ListNode(0);
+        v.next = head;
+        ListNode pre = v;
+        ListNode cur = head;
+        while(cur != null)
+        {
+            while(cur.next != null && cur.val == cur.next.val)
+                cur = cur.next;
+            if(pre.next == cur)
+                pre = pre.next;
+            else
+                pre.next = cur.next;
+            
+            cur = cur.next;
+            
+        }
+        return v.next;
+    }
 }
