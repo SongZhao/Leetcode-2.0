@@ -312,6 +312,8 @@ public class things_to_do_with_linkedlist {
     }
     
     //Partition list
+    //Given 1->4->3->2->5->2 and x = 3,
+    //return 1->2->2->4->3->5.
     public ListNode partition(ListNode head, int x) {
         ListNode v = new ListNode(0), v2 = new ListNode(0);
         ListNode ptr = v, ptr2 = v2;
