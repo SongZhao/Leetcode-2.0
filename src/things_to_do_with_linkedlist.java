@@ -335,4 +335,30 @@ public class things_to_do_with_linkedlist {
         ptr2.next = null;
         return v.next;
     }
+    
+    //Convert Sorted List to Binary Search Tree
+    //Given a singly linked list where elements are sorted in 
+    //ascending order, convert it to a height balanced BST.
+    public TreeNode sortedListToBST(ListNode head) {
+        if(head == null)
+            return null;
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode prev =null; 
+        while(fast != null && fast.next != null)
+        {
+            fast = fast.next.next;
+            prev =slow;
+            slow=slow.next;
+        }
+        TreeNode root = new TreeNode(slow.val);
+        if(prev != null)
+            prev.next = null;
+        else
+            head  = null;
+
+        root.left = sortedListToBST(head);
+        root.right = sortedListToBST(slow.next);
+        return root;
+    }
 }
