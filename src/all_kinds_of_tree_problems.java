@@ -761,7 +761,7 @@ public class all_kinds_of_tree_problems {
 	                root = (root.val > target)? root.left: root.right;   //choose to go left/right since its a binary tree.
 	            }
 	            return closestVal;
-	      }
+	        }
 	        //Kth closest Binary Search Tree Value
 	        /*The idea is to compare the predecessors and successors of the closest node to the target, 
 	         * we can use two stacks to track the predecessors and successors, then like what we do in 
@@ -807,48 +807,61 @@ public class all_kinds_of_tree_problems {
         	
         	
         	
-        	//Binary Tree Longest Consecutive Sequence
-        	//use DFS
-        	private int max = 0;
-            public int longestConsecutive(TreeNode root) {
-                if(root == null) return 0;
-                helper(root, 0, root.val);
-                return max;
-            }
+	//Binary Tree Longest Consecutive Sequence
+	//use DFS
+	private int max = 0;
+	public int longestConsecutive(TreeNode root) {
+		if(root == null) return 0;
+		helper(root, 0, root.val);
+		return max;
+	}
 
-            public void helper(TreeNode root, int cur, int target){
-                if(root == null) return;
-                if(root.val == target) cur++;
-                else cur = 1;				//change the current length back to 1 everytime we get a non-consecutive seq
-                max = Math.max(cur, max);
-                helper(root.left, cur, root.val + 1);
-                helper(root.right, cur, root.val + 1);
-            }
-            
-            //count Count Univalue Subtrees
-            //a leaf can be a sub tree itself;
-            //a univalue subtree's root.val = root.left.val = root.right.val
-            public int countUnivalSubtrees(TreeNode root) {
-                if (root == null) {
-                    return 0;
-                }
-                int[] counter = new int[1];
-                count(root, counter, root.val);
-                return counter[0];
-            }
+	public void helper(TreeNode root, int cur, int target){
+		if(root == null) return;
+		if(root.val == target) cur++;
+		else cur = 1;				//change the current length back to 1 everytime we get a non-consecutive seq
+		max = Math.max(cur, max);
+		helper(root.left, cur, root.val + 1);
+		helper(root.right, cur, root.val + 1);
+	}
 
-            private boolean count(TreeNode root, int[] counter, int val) {
-                if (root == null) {
-                    return true;
-                }
-                boolean l = count(root.left, counter, root.val);
-                boolean r = count(root.right, counter, root.val);
+	//count Count Univalue Subtrees
+	//a leaf can be a sub tree itself;
+	//a univalue subtree's root.val = root.left.val = root.right.val
+	public int countUnivalSubtrees(TreeNode root) {
+		if (root == null) {
+			return 0;
+		}
+		int[] counter = new int[1];
+		count(root, counter, root.val);
+		return counter[0];
+	}
 
-                if (l && r) {
-                    counter[0]++;
-                }
+	private boolean count(TreeNode root, int[] counter, int val) {
+		if (root == null) {
+			return true;
+		}
+		boolean l = count(root.left, counter, root.val);
+		boolean r = count(root.right, counter, root.val);
 
-                return l && r && root.val == val;
-            }
+		if (l && r) {
+			counter[0]++;
+		}
+
+		return l && r && root.val == val;
+	}
+	//Symmetric Tree
+	//Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+    public boolean isSymmetric(TreeNode root) {
+        if(root==null) return true;
+        return isMirror(root.left,root.right);
+    }
+    public boolean isMirror(TreeNode p, TreeNode q) {
+        if(p==null && q==null) return true;
+        if(p==null || q==null) return false;
+        return (p.val==q.val) && isMirror(p.left,q.right) && isMirror(p.right,q.left);
+    }
+
+
 
 }
