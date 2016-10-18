@@ -568,242 +568,242 @@ public class all_kinds_of_tree_problems {
 	        }
 	    }
 	        
-	        //Sum Root to Leaf Numbers
-	        //regular routine, the base case is at leaf which is 
-	        //			root.left == null && root.right == null
-	        public int sumNumbers(TreeNode root) {
-	            ArrayList<Integer> res = new ArrayList<Integer>();
-	            if(root == null)
-	                return 0;
-	            sumNumbers(root, 0,res);
-	            int result = 0;
-	            Iterator<Integer> itr = res.iterator();
-	            while(itr.hasNext())
-	                result += itr.next();
-	            return result;
-	        }
-	        public void sumNumbers(TreeNode root, int pre, List<Integer> res)
-	        {
-	            if(root == null)
-	                return;
-	            pre = pre*10 + root.val;
-	            if(root.left == null && root.right == null)
-	            {
-	                res.add(pre);
-	                return;
-	            }
-	            sumNumbers(root.left, pre,res);
-	            sumNumbers(root.right,pre,res);
-	        }
+    //Sum Root to Leaf Numbers
+    //regular routine, the base case is at leaf which is
+    //			root.left == null && root.right == null
+    public int sumNumbers(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(root == null)
+            return 0;
+        sumNumbers(root, 0,res);
+        int result = 0;
+        Iterator<Integer> itr = res.iterator();
+        while(itr.hasNext())
+            result += itr.next();
+        return result;
+    }
+    public void sumNumbers(TreeNode root, int pre, List<Integer> res)
+    {
+        if(root == null)
+            return;
+        pre = pre*10 + root.val;
+        if(root.left == null && root.right == null)
+        {
+            res.add(pre);
+            return;
+        }
+        sumNumbers(root.left, pre,res);
+        sumNumbers(root.right,pre,res);
+    }
+
 	        
+    //Serialize and Deserialize Binary Tree
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        StringBuilder str = new StringBuilder();
+
+        helperSerialize(root, str);
+        return str.toString();
+    }
+    //print the tree in string using pre order
+    private void helperSerialize(TreeNode root, StringBuilder str){
+        if(root == null) {
+            str.append("null").append(",");
+            return;
+        }
+
+        str.append(root.val).append(",");
+        helperSerialize(root.left, str);
+        helperSerialize(root.right, str);
+    }
+
+    int index = -1; //global variable to maintain the current index in deserialization
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        TreeNode result = null;
+
+        if(data.length() == 0) return result;
+
+        String[] buf = data.split(",");
+        result = helper(buf);
+
+        return result;
+    }
+
+    private TreeNode helper(String[] buf){
+        if(index >= buf.length) return null;	//base case
+        TreeNode root = null;  //if the corresponding node in the buf is null
+                                //we wont do any more recursive calls
+                                //thus just return the node as null
+
+        index++;   //we set index = -1 at begging to save all the trouble
+                   //because everytime we call this function we need to increase index by 1.
+        if(!buf[index].equals("null")) {
+            root = new TreeNode(Integer.parseInt(buf[index]));
+            root.left = helper(buf);			//we are return a node at corresponding index at a time
+            root.right = helper(buf);			//	and its just the way pre-order sorted.
+        }
+
+        return root;
+    }
+
+
+    //Lowest Common Ancestor of a Binary Search Tree
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        //since its a binary tree, and the LCA is somewhere in the shortest path
+        //thus it cant be smaller/larger than both of the target node.
+
+
+        if(root.val<Math.min(p.val,q.val))
+            return lowestCommonAncestor(root.right,p,q);
+        if(root.val>Math.max(p.val,q.val))
+            return lowestCommonAncestor(root.left,p,q);
+        return root;
+
+    }
+    //Lowest Common Ancestor of a Binary  Tree
+    //the key to this question is that one node must be in the left sub tree
+    //and another one must be in the right sub tree.
+    //so we r finding a node that fits this character or itself = p or q.
+    public TreeNode lowestCommonAncestorII(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null)
+             return null ;
+        TreeNode left = lowestCommonAncestorII(root.left, p, q);
+        TreeNode right = lowestCommonAncestorII(root.right, p, q);
+        //if we find a root = p or q, then it must be LCA
+        //or its a node in LCA's path
+        if(root == p || root == q)
+            return root;
+
+        //use to keep propagate the recursive function
+        if(left != null && right == null)
+            return left;
+        else if(left == null && right != null)
+            return right;
+        else if(left == null && right == null)//this means a dead end, there is no q or p in this branch.
+            return null;
+        else                                //else left sub tree would contain a node
+            return root;                    //and right sub tree would contain another.
+                                            //notice that it returns itself, not the value returned from
+                                            //child recursive calls.
+    }
+
+    //Count Complete Tree Nodes    time complexity log(n), because it only iterate the
+    //number of node of a full complete binary tree 2^(depth)-1;
+    //number of node of a layer is 2^level;
+    public int countNodes(TreeNode root) {
+
+        int leftDepth = leftDepth(root);
+        int rightDepth = rightDepth(root);
+
+        if (leftDepth == rightDepth)
+            return (1 << leftDepth) - 1;  //1<<leftDepth = 2^leftDepth
+        else
+            return 1+countNodes(root.left) + countNodes(root.right);
+
+    }
+
+    private int rightDepth(TreeNode root) {
+        // TODO Auto-generated method stub
+        int dep = 0;
+        while (root != null) {
+            root = root.right;
+            dep++;
+        }
+        return dep;
+    }
+
+    private int leftDepth(TreeNode root) {
+        // TODO Auto-generated method stub
+        int dep = 0;
+        while (root != null) {
+            root = root.left;
+            dep++;
+        }
+        return dep;
+    }
 	        
-	        //Serialize and Deserialize Binary Tree
-	        // Encodes a tree to a single string.
-	        public String serialize(TreeNode root) {
-	            StringBuilder str = new StringBuilder();
+    //Binary Tree Upside Down
+    //Given a binary tree where all the right nodes are either leaf nodes
+    //with a sibling (a left node that shares the same parent node) or
+    //empty, flip it upside down and turn it into a tree where the original right nodes turned into
+    //left leaf nodes. Return the new root.
+    //要点是任何一个right child都不会再有child
+    //用recursion，颠倒leftsub tree然后这个subtree的root.left指向他的parent，root.right指向和
+    //和他同level的right node.
+    public TreeNode UpsideDownBinaryTree(TreeNode root)
+    {
+        if(root == null)
+            return null;
+        TreeNode parent = root, left = root.left, right = root.right;
+        while(left != null)
+        {
+            TreeNode rev = UpsideDownBinaryTree(left);
+            left.left = parent;
+            left.right = right;
+            return rev;
+        }
+        return root;
+    }
 
-	            helperSerialize(root, str);
-	            return str.toString();
-	        }
-	        //print the tree in string using pre order
-	        private void helperSerialize(TreeNode root, StringBuilder str){
-	            if(root == null) {
-	                str.append("null").append(",");
-	                return;
-	            }
+    //Closest Binary Search Tree Value
+    public int closestValue(TreeNode root, double target)
+    {
+        int closestVal = root.val;
+        while(root != null)
+        {
+            //update closestVal if the current value is closer to target
+            closestVal = (Math.abs(target - root.val) < Math.abs(target - closestVal))? root.val : closestVal;
+            if(closestVal == target)
+            {   //already find the best result
+                return closestVal;
+            }
+            root = (root.val > target)? root.left: root.right;   //choose to go left/right since its a binary tree.
+        }
+        return closestVal;
+    }
+    //Kth closest Binary Search Tree Value
+    /*The idea is to compare the predecessors and successors of the closest node to the target,
+     * we can use two stacks to track the predecessors and successors, then like what we do in
+     * merge sort, we compare and pick the closest one to the target and put it to the result list.
+        As we know, inorder traversal gives us sorted predecessors, whereas reverse-inorder
+        traversal gives us sorted successors.
+    */
 
-	            str.append(root.val).append(",");
-	            helperSerialize(root.left, str);
-	            helperSerialize(root.right, str);
-	        }
+    public List<Integer> closestKValues(TreeNode root, double target, int k) {
+          List<Integer> res = new ArrayList<>();
 
-	        int index = -1; //global variable to maintain the current index in deserialization
-	        // Decodes your encoded data to tree.
-	        public TreeNode deserialize(String data) {
-	            TreeNode result = null;
+          Stack<Integer> s1 = new Stack<>(); // predecessors
+          Stack<Integer> s2 = new Stack<>(); // successors
 
-	            if(data.length() == 0) return result;
+          inorder(root, target, false, s1);
+          inorder(root, target, true, s2);
 
-	            String[] buf = data.split(",");
-	            result = helper(buf);
+          while (k-- > 0) {
+            if (s1.isEmpty())
+              res.add(s2.pop());
+            else if (s2.isEmpty())
+              res.add(s1.pop());
+            else if (Math.abs(s1.peek() - target) < Math.abs(s2.peek() - target))
+              res.add(s1.pop());
+            else
+              res.add(s2.pop());
+          }
 
-	            return result;
-	        }
+          return res;
+        }
 
-	        private TreeNode helper(String[] buf){
-	            if(index >= buf.length) return null;	//base case
-	            TreeNode root = null;  //if the corresponding node in the buf is null
-	            						//we wont do any more recursive calls
-	            						//thus just return the node as null
+    // inorder traversal
+    void inorder(TreeNode root, double target, boolean reverse, Stack<Integer> stack) {
+      if (root == null) return;
 
-	            index++;   //we set index = -1 at begging to save all the trouble
-	            		   //because everytime we call this function we need to increase index by 1.
-	            if(!buf[index].equals("null")) {
-	                root = new TreeNode(Integer.parseInt(buf[index]));
-	                root.left = helper(buf);			//we are return a node at corresponding index at a time
-	                root.right = helper(buf);			//	and its just the way pre-order sorted.
-	            }
-
-	            return root;
-	        }
-	        
-	        
-	        //Lowest Common Ancestor of a Binary Search Tree
-	        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-	            //since its a binary tree, and the LCA is somewhere in the shortest path
-	            //thus it cant be smaller/larger than both of the target node.
-	            
-	            
-	            if(root.val<Math.min(p.val,q.val)) 
-	                return lowestCommonAncestor(root.right,p,q);
-	            if(root.val>Math.max(p.val,q.val)) 
-	                return lowestCommonAncestor(root.left,p,q);
-	            return root;
-
-	        }
-	      //Lowest Common Ancestor of a Binary  Tree
-	        //the key to this question is that one node must be in the left sub tree
-	        //and another one must be in the right sub tree.
-	        //so we r finding a node that fits this character or itself = p or q.
-	        public TreeNode lowestCommonAncestorII(TreeNode root, TreeNode p, TreeNode q) {
-	            if(root == null)
-	                 return null ;
-	            TreeNode left = lowestCommonAncestorII(root.left, p, q);
-	            TreeNode right = lowestCommonAncestorII(root.right, p, q);
-	            //if we find a root = p or q, then it must be LCA
-	            //or its a node in LCA's path
-	            if(root == p || root == q)	
-	                return root;
-	            
-	            //use to keep propagate the recursive function
-	            if(left != null && right == null)
-	                return left;
-	            else if(left == null && right != null)
-	                return right;
-	            else if(left == null && right == null)//this means a dead end, there is no q or p in this branch.
-	                return null;
-	            else                                //else left sub tree would contain a node
-	                return root;                    //and right sub tree would contain another.
-	            									//notice that it returns itself, not the value returned from 
-	            									//child recursive calls.
-	        }
-	        
-	        //Count Complete Tree Nodes    time complexity log(n), because it only iterate the 
-	        //number of node of a full complete binary tree 2^(depth)-1;
-	        //number of node of a layer is 2^level;
-	        public int countNodes(TreeNode root) {
-
-	            int leftDepth = leftDepth(root);
-	            int rightDepth = rightDepth(root);
-
-	            if (leftDepth == rightDepth)
-	                return (1 << leftDepth) - 1;  //1<<leftDepth = 2^leftDepth
-	            else
-	                return 1+countNodes(root.left) + countNodes(root.right);
-
-	        }
-
-	        private int rightDepth(TreeNode root) {
-	            // TODO Auto-generated method stub
-	            int dep = 0;
-	            while (root != null) {
-	                root = root.right;
-	                dep++;
-	            }
-	            return dep;
-	        }
-
-	        private int leftDepth(TreeNode root) {
-	            // TODO Auto-generated method stub
-	            int dep = 0;
-	            while (root != null) {
-	                root = root.left;
-	                dep++;
-	            }
-	            return dep;
-	        }
-	        
-	        //Binary Tree Upside Down
-	        //Given a binary tree where all the right nodes are either leaf nodes 
-	        //with a sibling (a left node that shares the same parent node) or 
-	        //empty, flip it upside down and turn it into a tree where the original right nodes turned into 
-	        //left leaf nodes. Return the new root.
-	        //要点是任何一个right child都不会再有child
-	        //用recursion，颠倒leftsub tree然后这个subtree的root.left指向他的parent，root.right指向和
-	        //和他同level的right node.
-	        public TreeNode UpsideDownBinaryTree(TreeNode root)
-	        {
-	        	if(root == null)
-	        		return null;
-	        	TreeNode parent = root, left = root.left, right = root.right;
-	        	while(left != null)
-	        	{
-	        		TreeNode rev = UpsideDownBinaryTree(left);
-	        		left.left = parent;
-	        		left.right = right;
-	        		return rev;  
-	        	}
-	        	return root;
-	        }
-	        
-	        //Closest Binary Search Tree Value
-	        public int closestValue(TreeNode root, double target) 
-	        {
-	            int closestVal = root.val; 
-	            while(root != null)
-	            { 
-	                //update closestVal if the current value is closer to target
-	                closestVal = (Math.abs(target - root.val) < Math.abs(target - closestVal))? root.val : closestVal;
-	                if(closestVal == target)
-	                {   //already find the best result
-	                    return closestVal;
-	                }
-	                root = (root.val > target)? root.left: root.right;   //choose to go left/right since its a binary tree.
-	            }
-	            return closestVal;
-	        }
-	        //Kth closest Binary Search Tree Value
-	        /*The idea is to compare the predecessors and successors of the closest node to the target, 
-	         * we can use two stacks to track the predecessors and successors, then like what we do in 
-	         * merge sort, we compare and pick the closest one to the target and put it to the result list.
-				As we know, inorder traversal gives us sorted predecessors, whereas reverse-inorder 
-				traversal gives us sorted successors.
-			*/
-	        
-	        public List<Integer> closestKValues(TreeNode root, double target, int k) {
-	        	  List<Integer> res = new ArrayList<>();
-
-	        	  Stack<Integer> s1 = new Stack<>(); // predecessors
-	        	  Stack<Integer> s2 = new Stack<>(); // successors
-
-	        	  inorder(root, target, false, s1);
-	        	  inorder(root, target, true, s2);
-
-	        	  while (k-- > 0) {
-	        	    if (s1.isEmpty())
-	        	      res.add(s2.pop());
-	        	    else if (s2.isEmpty())
-	        	      res.add(s1.pop());
-	        	    else if (Math.abs(s1.peek() - target) < Math.abs(s2.peek() - target))
-	        	      res.add(s1.pop());
-	        	    else
-	        	      res.add(s2.pop());
-	        	  }
-
-	        	  return res;
-	        	}
-
-        	// inorder traversal
-        	void inorder(TreeNode root, double target, boolean reverse, Stack<Integer> stack) {
-        	  if (root == null) return;
-
-        	  inorder(reverse ? root.right : root.left, target, reverse, stack);
-        	  // early terminate, no need to traverse the whole tree
-        	  if ((reverse && root.val <= target) || (!reverse && root.val > target)) return;
-        	  // track the value of current node
-        	  stack.push(root.val);
-        	  inorder(reverse ? root.left : root.right, target, reverse, stack);
-        	}
+      inorder(reverse ? root.right : root.left, target, reverse, stack);
+      // early terminate, no need to traverse the whole tree
+      if ((reverse && root.val <= target) || (!reverse && root.val > target)) return;
+      // track the value of current node
+      stack.push(root.val);
+      inorder(reverse ? root.left : root.right, target, reverse, stack);
+    }
         	
         	
         	

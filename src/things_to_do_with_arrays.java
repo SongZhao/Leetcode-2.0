@@ -58,14 +58,59 @@ public class things_to_do_with_arrays {
 	    }
 	    return false;
 	}
-	class ValuePosPair implements Comparable<ValuePosPair>{
+	class ValuePosPair implements Comparable<ValuePosPair> {
 
-	    int val;
-	    int pos;
+		int val;
+		int pos;
 
-	    ValuePosPair(int v, int p) { val = v; pos = p;}
+		ValuePosPair(int v, int p) {
+			val = v;
+			pos = p;
+		}
 
-	    public int compareTo(ValuePosPair x){
-	        return this.val - x.val;
-	    }   
+		public int compareTo(ValuePosPair x) {
+			return this.val - x.val;
+		}
+
+	}
+
+	//Majority element
+	//Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+	//You may assume that the array is non-empty and the majority element always exist in the array.
+
+	public int majorityElement1(int[] nums)
+	{
+		if (nums == null || nums.length == 0) return 0;
+		int cnt = 0;
+		int candidate = 0;
+		for(int i = 0; i < nums.length; i++) {
+			if (cnt == 0) {
+				candidate = nums[i];
+				cnt = 1;
+			} else if (nums[i] == candidate) {
+				cnt++;
+			} else {
+				cnt--;
+			}
+		}
+		return candidate;
+	}
+
+	public int majorityElement2(int[] nums) {
+		if (nums.length == 1) return nums[0];
+		int leftM = majorityElement(Arrays.copyOfRange(nums, 0, nums.length/2));
+		int rightM = majorityElement(Arrays.copyOfRange(nums, nums.length/2, nums.length));
+		int counterLeft = 0;
+		for (int num : nums) {
+			if (num == leftM) counterLeft++;
+			if (counterLeft > nums.length/2) return leftM;
+		}
+		return rightM;
+	}
+
+	public int majorityElement3(int[] nums) {
+		Arrays.sort(nums);
+		return nums[nums.length/2];
+	}
+
 }
