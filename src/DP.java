@@ -36,7 +36,48 @@ public class DP {
     }
 
 
+    /*Unique Binary Search Trees
+    Given n, how many structurally unique BST's (binary search trees) that store values 1...n?
+    For example,
+    Given n = 3, there are a total of 5 unique BST's
+     */
+    M1
+    public int numTrees(int n) {
+        int [] dp = new int[n+1];
+        dp[0]= 1;
+        dp[1] = 1;
+        for(int level = 2; level <=n; level++)
+            for(int root = 1; root<=level; root++)
+                dp[level] += dp[level-root]*dp[root-1];
+        return dp[n];
+    }
+    M2
+    public static int numTrees1(int n)
+    {
+        int[] map = new int[n+1];
+        return numTrees_helper(map, n);
+    }
+    public static int numTrees_helper(int[] map, int n)
+    {
+        if(map[n] != 0)
+            return map[n];
 
+        if(n == 1||n==0)
+        {
+            map[n] = 1;
+            return 1;
+        }
+
+        int count = 0;
+
+        for(int i = 1; i <= n; i++)
+        {
+            count += numTrees_helper(map, i-1)*numTrees_helper(map, n-i);
+        }
+
+        map[n] = count;
+        return count;
+    }
 
 
 }
