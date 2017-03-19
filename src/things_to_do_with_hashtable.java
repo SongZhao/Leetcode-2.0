@@ -231,7 +231,7 @@ public class things_to_do_with_hashtable {
 	  
 	  //treeset will maintain the order of element by the time being added, thus we can always maintain a treeSet with size K
 	  //its like a sliding window and 
-	  public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) 
+	  public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t)
 	  {
 	    if (nums == null || nums.length == 0) return false;
 	    TreeSet<Long> set = new TreeSet<>();
@@ -250,31 +250,31 @@ public class things_to_do_with_hashtable {
     //we can use array like hashtable sometimes.
     //Count Primes
 	 //Count the number of prime numbers less than a non-negative number, n.
-	 public int countPrimes(int n) 
-	    {
-	        int res = 0;
-	        boolean[] used = new boolean[n];
-	        for (int i = 2; i <= Math.sqrt(n); i++) 
-	        {
-	         if (!used[i - 1]) 
-	         {
-	            int temp = i * i;
-	            while (temp < n) 
-	            {
-	                used[temp - 1] = true;
-	                temp += i;
-	            }
-	         }
-	        }
-	        for (int i = 2; i < n; i++) 
-	        {
-	        if (!used[i - 1])
-	        {
-	            res++;
-	        }
-	        }
-	        return res;
-	    }
+	 public int countPrimes(int n)
+	 {
+		int res = 0;
+		boolean[] used = new boolean[n];
+		for (int i = 2; i <= Math.sqrt(n); i++)
+		{
+		 if (!used[i - 1])
+		 {
+			int temp = i * i;
+			while (temp < n)
+			{
+				used[temp - 1] = true;
+				temp += i;
+			}
+		 }
+		}
+		for (int i = 2; i < n; i++)
+		{
+		if (!used[i - 1])
+		{
+			res++;
+		}
+		}
+		return res;
+	 }
 	 
 	 //Minimum Window Substring
 	 public String minWindow(String s, String t) {
