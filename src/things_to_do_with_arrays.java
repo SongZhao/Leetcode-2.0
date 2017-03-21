@@ -152,4 +152,33 @@ public class things_to_do_with_arrays {
             result.add(number2);
         return result;
     }
+
+	//Pascal'sTriangle
+    //Given numRows, generate the first numRows of Pascal's triangle.
+	public List<List<Integer>> generate(int numRows)
+	{
+		List<List<Integer>> allrows = new ArrayList<List<Integer>>();
+		ArrayList<Integer> row = new ArrayList<Integer>();
+		for(int i=0;i<numRows;i++)
+		{
+			row.add(0, 1);
+			for(int j=1;j<row.size()-1;j++)
+				row.set(j, row.get(j)+row.get(j+1));
+			allrows.add(new ArrayList<Integer>(row));
+		}
+		return allrows;
+
+	}
+
+
+	//Pascal'sTriangle II
+	public List<Integer> getRow(int rowIndex) {
+		Integer[] result =  new Integer[rowIndex + 1];
+		Arrays.fill(result, 0);
+		result[0] = 1;
+		for(int i = 1; i < rowIndex + 1; i++)
+			for(int j = i; j >= 1; j--)
+				result[j] += result[j - 1];
+		return Arrays.asList(result);
+	}
 }
