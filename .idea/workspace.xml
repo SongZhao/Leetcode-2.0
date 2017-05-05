@@ -46,7 +46,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="5643">
               <caret line="173" column="25" selection-start-line="173" selection-start-column="25" selection-end-line="173" selection-end-column="25" />
-              <folding />
+              <folding>
+                <marker date="1491870779651" expanded="true" signature="785:809" ph="//..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -54,8 +56,8 @@
       <file leaf-file-name="DP.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1088">
-              <caret line="148" column="69" selection-start-line="148" selection-start-column="69" selection-end-line="148" selection-end-column="69" />
+            <state relative-caret-position="1009">
+              <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -64,7 +66,7 @@
       <file leaf-file-name="things_to_do_with_hashtable.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/things_to_do_with_hashtable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="956">
+            <state relative-caret-position="2904">
               <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -86,7 +88,7 @@
       <file leaf-file-name="things_to_do_with_recursion.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/things_to_do_with_recursion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1880">
+            <state relative-caret-position="2343">
               <caret line="71" column="53" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
               <folding />
             </state>
@@ -138,10 +140,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-16" />
-    <option name="y" value="-16" />
-    <option name="width" value="3872" />
-    <option name="height" value="2092" />
+    <option name="x" value="1906" />
+    <option name="width" value="1948" />
+    <option name="height" value="2074" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -505,15 +506,16 @@
       <workItem from="1490058203521" duration="589000" />
       <workItem from="1490230569593" duration="205000" />
       <workItem from="1490392653945" duration="4207000" />
+      <workItem from="1494022588680" duration="184000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22834000" />
+    <option name="totallyTimeSpent" value="23018000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
-    <editor active="false" />
+    <frame x="1906" y="0" width="1948" height="2074" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -556,6 +558,40 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/things_to_do_with_hashtable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2904">
+          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/things_to_do_with_math.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="891">
+          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/things_to_do_with_recursion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2343">
+          <caret line="71" column="53" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/search_algo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ListNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
@@ -576,7 +612,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5643">
           <caret line="173" column="25" selection-start-line="173" selection-start-column="25" selection-end-line="173" selection-end-column="25" />
-          <folding />
+          <folding>
+            <marker date="1491870779651" expanded="true" signature="785:809" ph="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -658,7 +696,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4521">
           <caret line="139" column="9" selection-start-line="139" selection-start-column="9" selection-end-line="139" selection-end-column="9" />
-          <folding />
+          <folding>
+            <marker date="1491870779651" expanded="true" signature="785:809" ph="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -724,7 +764,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4521">
           <caret line="139" column="9" selection-start-line="139" selection-start-column="9" selection-end-line="139" selection-end-column="9" />
-          <folding />
+          <folding>
+            <marker date="1491870779651" expanded="true" signature="785:809" ph="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -764,7 +806,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4521">
           <caret line="139" column="9" selection-start-line="139" selection-start-column="9" selection-end-line="139" selection-end-column="9" />
-          <folding />
+          <folding>
+            <marker date="1491870779651" expanded="true" signature="785:809" ph="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -804,7 +848,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1491870779651" expanded="true" signature="785:809" ph="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -836,7 +882,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1491870779651" expanded="true" signature="785:809" ph="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -892,7 +940,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5643">
           <caret line="173" column="25" selection-start-line="173" selection-start-column="25" selection-end-line="173" selection-end-column="25" />
-          <folding />
+          <folding>
+            <marker date="1491870779651" expanded="true" signature="785:809" ph="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -914,7 +964,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/things_to_do_with_recursion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1880">
+        <state relative-caret-position="2343">
           <caret line="71" column="53" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
           <folding />
         </state>
@@ -922,7 +972,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/things_to_do_with_hashtable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="956">
+        <state relative-caret-position="2904">
           <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -932,8 +982,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="148" column="69" selection-start-line="148" selection-start-column="69" selection-end-line="148" selection-end-column="69" />
+        <state relative-caret-position="1009">
+          <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
           <folding />
         </state>
       </provider>
