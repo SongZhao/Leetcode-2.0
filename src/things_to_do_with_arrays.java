@@ -181,4 +181,63 @@ public class things_to_do_with_arrays {
 				result[j] += result[j - 1];
 		return Arrays.asList(result);
 	}
+	/*given an array of n integers nums and a target, find the number of index triplets i, j, k with
+	0 <= i < j < k < n that satisfy the condition nums[i] + nums[j] + nums[k] < target.
+	For example, given nums = [-2, 0, 1, 3], and target = 2.
+	Return 2. Because there are two triplets which sums are less than 2:*/
+
+	public int threeSumSmaller(int[] nums, int target) {
+		count = 0;
+		Arrays.sort(nums);
+		int len = nums.length;
+
+		for(int i=0; i<len-2; i++) {
+			int left = i+1, right = len-1;
+			while(left < right) {
+				if(nums[i] + nums[left] + nums[right] < target) {
+					count += right-left;
+					left++;
+				} else {
+					right--;
+				}
+			}
+		}
+		return count;
+	}
+	/*Design and implement a TwoSum class. It should support the following operations: add and find.
+	add - Add the number to an internal data structure.
+	find - Find if there exists any pair of numbers which sum is equal to the value.
+	For example,
+
+	add(1);
+	add(3);
+	add(5);
+	find(4) -> true
+	find(7) -> false*/
+
+	public class TwoSum{
+
+		private List<Integer> list = new ArrayList<Integer>();
+		private Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		public void add(int number)
+		{
+			if (map.containsKey(number))
+				map.put(number, map.get(number)+1);
+			else
+				map.put(number, 1);
+			list.add(number);
+		}
+		public boolean find(int value)
+		{
+			for (int i = 0; i < list.size(); i++)
+			{
+				int num1 = list.get(i), num2 = value - num1;
+				if((num1 == num2 && map.get(num1) > 1))||(num1 != num2 && map.containsKey(num2))
+					return true;
+
+			}
+			return false;
+		}
+	}
+
 }

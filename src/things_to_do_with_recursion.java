@@ -27,9 +27,9 @@ public class things_to_do_with_recursion {
     {
         if(list.size() == 0)
         {
-            List<List<Integer>> res = new ArrayList<List<Integer>>();
+            List<List<Integer>> res = new ArrayList<L
+            return res;ist<Integer>>();
             res.add(new ArrayList<Integer>());
-            return res;
         }
         else
         {
