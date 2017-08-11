@@ -266,4 +266,38 @@ public class things_to_do_with_arrays {
 		nums[i-1] = tmp;
 		Arrays.sort(nums, i, nums.length);
 	}
+
+
+	/*First Missing Positive
+	Given an unsorted integer array, find the first missing positive integer.
+
+	For example,
+	Given [1,2,0] return 3,
+	and [3,4,-1,1] return 2.
+
+	Your algorithm should run in O(n) time and uses constant space.*/
+	public int firstMissingPositive(int[] nums) {
+		for(int i = 0; i < nums.length; i++)
+		{
+			int val = nums[i];
+			while(val <= nums.length && val > 0 && nums[val-1] != val) //ie. if val = 2  >> nums[1] = 2;
+			{
+				int tmp = nums[val - 1];
+				nums[val - 1] = val;
+				nums[i] = tmp;
+				val = tmp;
+			}
+		}
+		System.out.println((nums.length == 0)? "x": nums[0]);
+		for(int i = 0; i < nums.length; i++)
+		{
+			if(nums[i] != i+1)
+				return i+1;
+		}
+		return nums.length +1;
+	}
+
+
+
+
 }
