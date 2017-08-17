@@ -329,5 +329,28 @@ public class things_to_do_with_arrays {
 		}
 
 	}
+	//Find the Duplicate Number
+	//Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), prove that at
+	// least one duplicate number must exist. Assume that there is only one duplicate number, find the duplicate one.
+	//method 1 binary search
+	public int findDuplicate(int[] nums) {
+		int low = 1;
+		int high = nums.length -1;
+
+		while (low < high)
+		{   int mid = low+(high-low)/2;
+			int count = 0;
+			for (int i : nums)
+			{
+				if (i <= mid)
+					count += 1;
+			}
+			if (count <= mid)
+				low = mid+1;
+			else
+				high = mid;}
+		return low;
+	}
+
 
 }
