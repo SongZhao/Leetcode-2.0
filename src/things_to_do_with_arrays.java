@@ -351,6 +351,27 @@ public class things_to_do_with_arrays {
 				high = mid;}
 		return low;
 	}
+	//method 2   two pointer, treat the array like a linked list
+	public int findDuplicate2(int[] nums) {
+		if (nums.length > 1)
+		{
+			int slow = nums[0];
+			int fast = nums[nums[0]];
+			while (slow != fast)
+			{
+				slow = nums[slow];
+				fast = nums[nums[fast]];
+			}
 
+			fast = 0;
+			while (fast != slow)
+			{
+				fast = nums[fast];
+				slow = nums[slow];
+			}
+			return slow;
+		}
+		return -1;
+	}
 
 }
