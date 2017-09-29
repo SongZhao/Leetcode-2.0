@@ -374,4 +374,25 @@ public class things_to_do_with_arrays {
 		return -1;
 	}
 
+	/*rotate Image
+	You are given an nxn 2D matrix representing an image
+	rotate the image by 90 degrees(clock wise)
+	 */
+	public void rotate(int[][] matrix) {
+		int s = 0, e = matrix.length - 1;
+		while(s < e){                           //flip the matrix upside down
+			int[] temp = matrix[s];
+			matrix[s] = matrix[e];
+			matrix[e] = temp;
+			s++; e--;
+		}
+
+		for(int i = 0; i < matrix.length; i++){             //change the symmetry on diagonal
+			for(int j = i+1; j < matrix[i].length; j++){
+				int temp = matrix[i][j];
+				matrix[i][j] = matrix[j][i];
+				matrix[j][i] = temp;
+			}
+		}
+	}
 }
