@@ -396,8 +396,8 @@ public class things_to_do_with_arrays {
 		}
 	}
 
-	/*Spiral Matrix
-	// 4 pointers and shrink them one by one
+	//Spiral Matrix
+	// pointers and shrink them one by one
 	public List<Integer> spiralOrder(int[][] matrix) {
          List<Integer> res = new ArrayList<Integer>();
 
@@ -439,8 +439,9 @@ public class things_to_do_with_arrays {
             }
             colBegin ++;
         }
-
         return res;
-
     }
+
+
+
 }
