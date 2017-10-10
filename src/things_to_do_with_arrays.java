@@ -441,7 +441,38 @@ public class things_to_do_with_arrays {
         }
         return res;
     }
-
-
-
+    /*Insert Interval
+    Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
+	You may assume that the intervals were initially sorted according to their start times.
+	Example 1:
+	Given intervals [1,3],[6,9], insert and merge [2,5] in as [1,5],[6,9].
+	Example 2:
+	Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16].*/
+    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+    List<Interval> res = new ArrayList<Interval>();
+    for(int i = 0; i < intervals.size(); i++)
+    {
+        Interval ptr = intervals.get(i);    //create a ptr copy
+        if(ptr.start > newInterval.end)     //if this copy.start is after cur.end
+        {
+            res.add(newInterval);           //put cur in the list 
+            newInterval = ptr;              // make cur = copy
+        }
+        else if(ptr.end < newInterval.start)    //else if copy.end is befor the cur.start
+        {
+            res.add(ptr);                       //put copy in the list
+        }
+        else                                    //if the copy is overlap with cur
+        {
+            newInterval.start = Math.min(ptr.start, newInterval.start);     //make new cur start and new cur end
+            newInterval.end = Math.max(ptr.end, newInterval.end);           // we dont merge it now, since we dont know if
+                                                                            // next intvl is overlaped or not, leave the decision 
+                                                                            // to next loop (Notice : we only add cur in the first
+                                                                            // clause, thus we might add it after the while loop if
+                                                                            // it doesnt happen there)
+        }
+    }
+    res.add(newInterval); //if the merge happenend till the end of the loop, we need to add it here.
+    return res;
+	}
 }
