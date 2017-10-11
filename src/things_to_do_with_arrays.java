@@ -513,7 +513,10 @@ public class things_to_do_with_arrays {
                     nums[index] = nums[p2];
                     nums[p2] = 2;
                     p2--;
-                    index--;
+                    index--; //decrease index by one or use while instead of if.
+                    		 // because we need to examine if the one been swaped out
+                    		 // is 2 or not. if we dont we are gonna miss that since
+                    		 // the index pointer is moving to the right.
                 }
                 index++;
         }
