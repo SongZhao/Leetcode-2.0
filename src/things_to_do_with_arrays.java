@@ -169,6 +169,22 @@ public class things_to_do_with_arrays {
 		return allrows;
 
 	}
+	//implementation 2
+	public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+		List<Integer> row, pre = null;
+		for (int i = 0; i < numRows; i++) {
+			row = new ArrayList<Integer>();
+			for (int j = 0; j <= i; j++)
+				if (j == 0 || j == i)                       //first and last elements r always 1
+					row.add(1);
+				else
+					row.add(pre.get(j - 1) + pre.get(j));
+			pre = row;
+			res.add(row);
+		}
+		return res;
+    }
 
 
 	//Pascal'sTriangle II
@@ -176,8 +192,8 @@ public class things_to_do_with_arrays {
 		Integer[] result =  new Integer[rowIndex + 1];
 		Arrays.fill(result, 0);
 		result[0] = 1;
-		for(int i = 1; i < rowIndex + 1; i++)
-			for(int j = i; j >= 1; j--)
+		for(int i = 1; i < rowIndex + 1; i++)   //start from 1 because res[0] is fixed to 1
+			for(int j = i; j >= 1; j--)         //always set the last element as 1, then recusivley updates
 				result[j] += result[j - 1];
 		return Arrays.asList(result);
 	}
@@ -530,7 +546,7 @@ public class things_to_do_with_arrays {
 	            nums[i++] = n;
 	    return i;
     }
-    
+
     //Search in Rotated Sorted Array
     public int search(int[] nums, int target) {
                   int start = 0;
@@ -558,5 +574,48 @@ public class things_to_do_with_arrays {
     }
     
     return -1;
+    }
+
+    //Longest Consecutive Sequence
+    //given [100, 4, 200, 1, 3, 2], return 4
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+            for(int n : nums) {
+                set.add(n);
+            }
+            int best = 0;
+            for(int n : set) {
+                if(!set.contains(n - 1)) {  // only check for one direction
+                    int m = n + 1;
+                    while(set.contains(m)) {
+                        m++;
+                    }
+                    best = Math.max(best, m - n);
+                }
+            }
+            return best;
+    }
+
+    //Find Minimum in Rotated Sorted Array
+    public int findMin(int[] num) {
+        if (num == null || num.length == 0) {
+            return 0;
+        }
+        if (num.length == 1) {
+            return num[0];
+        }
+        int start = 0, end = num.length - 1;
+        while (start < end) {
+            int mid = (start + end) / 2;
+            if (mid > 0 && num[mid] < num[mid - 1]) {	//prune results that if one is small than the 
+                return num[mid];						// item before it, it must be the smallest
+            }
+            if (num[start] <= num[mid] && num[mid] > num[end]) {  //the num[mid] > num[end] is crucial
+                start = mid + 1;
+            } else {
+                end = mid;
+            }
+        }
+        return num[start];
     }
 }
