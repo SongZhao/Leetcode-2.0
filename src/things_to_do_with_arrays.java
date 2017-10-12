@@ -1,4 +1,4 @@
-﻿import java.util.Arrays;
+import java.util.Arrays;
 
 public class things_to_do_with_arrays {
 
@@ -296,8 +296,8 @@ public class things_to_do_with_arrays {
 		}
 		return nums.length +1;
 	}
-
-	Given a m x n matrix, if an element is 0, set its entire row and column to 0. Do it in place.
+	//Set Matrix Zeroes
+	//Given a m x n matrix, if an element is 0, set its entire row and column to 0. Do it in place.
 	public void setZeroes(int[][] matrix) {
 		boolean fr = false,fc = false;
 		for(int i = 0; i < matrix.length; i++) {
@@ -355,12 +355,12 @@ public class things_to_do_with_arrays {
 	public int findDuplicate2(int[] nums) {
 		if (nums.length > 1)
 		{
-			int slow = nums[0];
-			int fast = nums[nums[0]];
-			while (slow != fast)
+			int slow = nums[0];     //point to first node
+			int fast = nums[nums[0]]; //point to the second node
+			while (slow != fast)		//meet in a loop
 			{
-				slow = nums[slow];
-				fast = nums[nums[fast]];
+				slow = nums[slow];	//speed = 1
+				fast = nums[nums[fast]]; //speed = 2
 			}
 
 			fast = 0;
@@ -520,5 +520,43 @@ public class things_to_do_with_arrays {
                 }
                 index++;
         }
+    }
+
+    //Remove Duplicates from Sorted Array II
+    public int removeDuplicates(int[] nums) {
+        int i = 0;  //two pointers i and n. i is the slow one
+	    for (int n : nums)
+	        if (i < 2 || n > nums[i-2])
+	            nums[i++] = n;
+	    return i;
+    }
+    
+    //Search in Rotated Sorted Array
+    public int search(int[] nums, int target) {
+                  int start = 0;
+    int end = nums.length - 1;   
+    while (start <= end) {
+        int mid = (end + start) / 2;
+        // System.out.format("start=%d,mid=%d,end=%d\n",start,mid,end);
+        if (nums[mid] == target) return mid;
+        // the following is the same as problem I
+        if (nums[start] <= nums[mid]) { //mid is at the left of the rotate point
+            if (nums[start] <= target && target < nums[mid]) {  //target is at the left of the mid
+                //must have nums[start] <= target to elimilate the case where 
+                //  there is start = mid
+                end = mid - 1;
+            } else {                                            //target is at the right of the mid
+                start = mid + 1;
+            }
+        } else {
+            if (nums[mid] < target && target <= nums[end]) {    //mid is at the right of the rotate point
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+    }
+    
+    return -1;
     }
 }
