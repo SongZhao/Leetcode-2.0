@@ -412,6 +412,28 @@ public class things_to_do_with_arrays {
 		}
 	}
 
+	//rotate array
+	public void rotate(int[] nums, int k) {
+	    if(nums == null || nums.length < 2){
+	        return;
+	    }
+	    k = k % nums.length;
+	    reverse(nums, 0, nums.length - k - 1);
+	    reverse(nums, nums.length - k, nums.length - 1);
+	    reverse(nums, 0, nums.length - 1);   
+	}
+
+	private void reverse(int[] nums, int i, int j){
+	    int tmp = 0;       
+	    while(i < j){
+	        tmp = nums[i];
+	        nums[i] = nums[j];
+	        nums[j] = tmp;
+	        i++;
+	        j--;
+	    }
+	}
+
 	//Spiral Matrix
 	// pointers and shrink them one by one
 	public List<Integer> spiralOrder(int[][] matrix) {
@@ -547,34 +569,7 @@ public class things_to_do_with_arrays {
 	    return i;
     }
 
-    //Search in Rotated Sorted Array
-    public int search(int[] nums, int target) {
-                  int start = 0;
-    int end = nums.length - 1;   
-    while (start <= end) {
-        int mid = (end + start) / 2;
-        // System.out.format("start=%d,mid=%d,end=%d\n",start,mid,end);
-        if (nums[mid] == target) return mid;
-        // the following is the same as problem I
-        if (nums[start] <= nums[mid]) { //mid is at the left of the rotate point
-            if (nums[start] <= target && target < nums[mid]) {  //target is at the left of the mid
-                //must have nums[start] <= target to elimilate the case where 
-                //  there is start = mid
-                end = mid - 1;
-            } else {                                            //target is at the right of the mid
-                start = mid + 1;
-            }
-        } else {
-            if (nums[mid] < target && target <= nums[end]) {    //mid is at the right of the rotate point
-                start = mid + 1;
-            } else {
-                end = mid - 1;
-            }
-        }
-    }
     
-    return -1;
-    }
 
     //Longest Consecutive Sequence
     //given [100, 4, 200, 1, 3, 2], return 4
@@ -597,25 +592,249 @@ public class things_to_do_with_arrays {
     }
 
     //Find Minimum in Rotated Sorted Array
-    public int findMin(int[] num) {
+    public int findMin(int[] nums) {
         if (num == null || num.length == 0) {
-            return 0;
-        }
-        if (num.length == 1) {
-            return num[0];
-        }
-        int start = 0, end = num.length - 1;
-        while (start < end) {
-            int mid = (start + end) / 2;
+   			 return 0;
+        int low = 0;
+        int high = nums.length - 1;
+        while(low < high)
+        {
+            int m = low + (high - low)/2;
             if (mid > 0 && num[mid] < num[mid - 1]) {	//prune results that if one is small than the 
                 return num[mid];						// item before it, it must be the smallest
+            if(nums[m] < nums[high])
+            {
+                high = m;
             }
-            if (num[start] <= num[mid] && num[mid] > num[end]) {  //the num[mid] > num[end] is crucial
-                start = mid + 1;
-            } else {
-                end = mid;
+            else if(nums[m] > nums[high])
+            {
+                low = m + 1;
             }
         }
-        return num[start];
+        return nums[low];
     }
+    //Find Minimum in Rotated Sorted Array II (with array has duplicates in it)
+    public int findMin(int[] nums) {
+        int low = 0;
+        int high = nums.length - 1;
+        while(low < high)
+        {
+            int m = low + (high - low)/2;
+            if(nums[m] < nums[high])
+            {
+                high = m;
+            }
+            else if(nums[m] > nums[high])
+            {
+                low = m + 1;
+            }
+            else
+            {
+                high--;
+            }
+        }
+        return nums[low];
+    }
+
+    //Search in Rotated Sorted Array
+    public int search(int[] nums, int target) {
+                  int start = 0;
+    int end = nums.length - 1;   
+    while (start <= end) {
+        int mid = (end + start) / 2;
+        // System.out.format("start=%d,mid=%d,end=%d\n",start,mid,end);
+        if (nums[mid] == target) return mid;
+  
+        if (nums[start] <= nums[mid]) { //mid is at the left of the rotate point
+            if (nums[start] <= target && target < nums[mid]) {  //target is at the left of the mid
+                //must have nums[start] <= target to elimilate the case where 
+                //  there is start = mid
+                end = mid - 1;
+            } else {                                            //target is at the right of the mid
+                start = mid + 1;
+            }
+        } else {
+            if (nums[mid] < target && target <= nums[end]) {    //mid is at the right of the rotate point
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+    }
+    
+    return -1;
+    }
+
+    //Find Peak Element 
+    public int findPeakElement(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        while(left < right) {
+            int mid = left + (right - left) / 2;
+            if(nums[mid] < nums[mid + 1]) 		//find a peak by always going up.
+            {
+                left = mid + 1;
+            } 
+            else 
+            {
+                right = mid;
+            }
+    }
+    return left;
+    }
+
+    //Summary Ranges
+    public List<String> summaryRanges(int[] nums) {
+        List<String> list=new ArrayList();
+        if(nums.length==1){
+            list.add(nums[0]+"");
+            return list;
+        }
+        for(int i=0;i<nums.length;i++){
+            int a=nums[i];
+            while(i+1<nums.length&&(nums[i+1]-nums[i])==1){
+                i++;
+            }
+            if(a!=nums[i]){
+                list.add(a+"->"+nums[i]);
+            }else{
+                list.add(a+"");
+            }
+        }
+        return list;
+    }
+    //Product of Array Except Self
+    //Given an array of n integers where n > 1, nums, return an array output such that output[i] 
+    //is equal to the product of all the elements of nums except nums[i].
+	//Solve it without division and in O(n).	
+    public int[] productExceptSelf(int[] nums) {
+	    int n = nums.length;
+	    int[] res = new int[n];
+	    res[0] = 1;
+	    for (int i = 1; i < n; i++) {
+	        res[i] = res[i - 1] * nums[i - 1];
+	    }
+	    int right = 1;
+	    for (int i = n - 1; i >= 0; i--) {
+	        res[i] *= right;
+	        right *= nums[i];
+	    }
+	    return res;
+    }
+
+    //Third Maximum Number
+    //can do this navively by keeping 3 var to record top 3 value
+    //this one use queue and set. Using priority que, so the one
+    //we poll is the smallest.
+    public int thirdMax(int[] nums) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        Set<Integer> set = new HashSet<>();
+        for (int i : nums) {
+            if (!set.contains(i)) {
+                pq.offer(i);
+                set.add(i);
+                if (pq.size() > 3) {
+                    set.remove(pq.poll());
+                }
+            }
+        }
+        if (pq.size() < 3) {
+            while (pq.size() > 1) {
+                pq.poll();
+            }
+        }
+        return pq.peek();
+    }
+
+
+    //Find All Duplicates in an Array
+    //Given an array of integers, 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+	//Find all the elements that appear twice in this array.
+	//Could you do it without extra space and in O(n) runtime?
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < nums.length; ++i) {
+            int index = Math.abs(nums[i])-1;
+            if (nums[index] < 0)
+                res.add(Math.abs(index+1));
+            nums[index] = -nums[index];			//we alt the original array to indicate the difference.
+        }
+        return res;
+    }
+
+
+
+    //K-diff Pairs in an Array
+    public int findPairs(int[] nums, int k) {
+        if (nums == null || nums.length == 0 || k < 0)   return 0;
+        
+        Map<Integer, Integer> map = new HashMap<>();
+        int count = 0;
+        for (int i : nums) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+        
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (k == 0) {
+                //count how many elements in the array that appear more than twice.
+                if (entry.getValue() >= 2) {
+                    count++;
+                } 
+            } else {
+                if (map.containsKey(entry.getKey() + k)) {
+                    count++;
+                }
+            }
+        }     
+        return count;
+    }
+
+    //Subarray Sum Equals K
+    public int subarraySum(int[] nums, int k) {
+         int sum = 0, result = 0;
+            Map<Integer, Integer> preSum = new HashMap<>();
+            preSum.put(0, 1);
+
+            for (int i = 0; i < nums.length; i++) {
+                sum += nums[i];
+                if (preSum.containsKey(sum - k)) {
+                    result += preSum.get(sum - k);
+                }
+                preSum.put(sum, preSum.getOrDefault(sum, 0) + 1);
+            }
+        
+        return result;
+    }
+
+    //Maximum Subarray
+    public int maxSubArray(int[] nums) {
+    	int sum = 0;
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i < nums.length; i++)
+        {
+           sum = Math.max(nums[i], sum + nums[i]);
+           max = Math.max(sum, max);
+        }
+        return max;
+    }
+
+
+    //Shortest Unsorted Continuous Subarray
+    public int findUnsortedSubarray(int[] A) {
+nt i = 0, j = -1, max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
+    
+    for (int l = 0, r = nums.length - 1; r >= 0; l++, r--) {
+        max = Math.max(max, nums[l]);
+        if (nums[l] != max) 
+        	j = l;
+        
+        min = Math.min(min, nums[r]);
+        if (nums[r] != min) 
+        	i = r;
+    }
+    
+    return (j - i + 1);
+    }
+
+
 }
