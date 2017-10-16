@@ -821,20 +821,42 @@ public class things_to_do_with_arrays {
 
     //Shortest Unsorted Continuous Subarray
     public int findUnsortedSubarray(int[] A) {
-nt i = 0, j = -1, max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
+     	int i = 0, j = -1, max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
     
-    for (int l = 0, r = nums.length - 1; r >= 0; l++, r--) {
-        max = Math.max(max, nums[l]);
-        if (nums[l] != max) 
-        	j = l;
-        
-        min = Math.min(min, nums[r]);
-        if (nums[r] != min) 
-        	i = r;
+	    for (int l = 0, r = nums.length - 1; r >= 0; l++, r--) {
+	        max = Math.max(max, nums[l]);
+	        if (nums[l] != max) 
+	        	j = l;
+	        
+	        min = Math.min(min, nums[r]);
+	        if (nums[r] != min) 
+	        	i = r;
+	    }
+	    return (j - i + 1);
     }
-    
-    return (j - i + 1);
-    }
+
+    //Sliding Window Maximum
+    public int[] maxSlidingWindow(int[] nums, int k) {
+	    int n = nums.length;
+	    if (n == 0) {
+	        return nums;
+	    }
+	    int[] result = new int[n - k + 1];
+	    LinkedList<Integer> dq = new LinkedList<>();
+	    for (int i = 0; i < n; i++) {
+	        if (!dq.isEmpty() && dq.peek() < i - k + 1) {
+	            dq.poll();
+	        }
+	        while (!dq.isEmpty() && nums[i] >= nums[dq.peekLast()]) {
+	            dq.pollLast();
+	        }
+	        dq.offer(i);
+	        if (i - k + 1 >= 0) {
+	            result[i - k + 1] = nums[dq.peek()];
+	        }
+	    }
+	    return result;
+	}
 
 
 }

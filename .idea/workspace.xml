@@ -45,10 +45,10 @@
       <file leaf-file-name="things_to_do_with_arrays.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/things_to_do_with_arrays.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="451" column="55" lean-forward="true" selection-start-line="451" selection-start-column="55" selection-end-line="451" selection-end-column="55" />
+            <state relative-caret-position="17">
+              <caret line="489" column="51" lean-forward="false" selection-start-line="489" selection-start-column="51" selection-end-line="489" selection-end-column="51" />
               <folding>
-                <marker date="1507610381794" expanded="true" signature="785:809" ph="//..." />
+                <marker date="1507871641469" expanded="true" signature="785:809" ph="//..." />
               </folding>
             </state>
           </provider>
@@ -166,7 +166,7 @@
     <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../helpinghands" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -535,14 +535,16 @@
       <workItem from="1507156904865" duration="121000" />
       <workItem from="1507520654623" duration="597000" />
       <workItem from="1507609811480" duration="950000" />
+      <workItem from="1507940062171" duration="65000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44951000" />
+    <option name="totallyTimeSpent" value="45016000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="871" y="0" width="974" height="1047" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -650,7 +652,7 @@
         <state relative-caret-position="5643">
           <caret line="173" column="25" lean-forward="false" selection-start-line="173" selection-start-column="25" selection-end-line="173" selection-end-column="25" />
           <folding>
-            <marker date="1507610381794" expanded="true" signature="785:809" ph="//..." />
+            <marker date="1507871641469" expanded="true" signature="785:809" ph="//..." />
           </folding>
         </state>
       </provider>
@@ -734,7 +736,7 @@
         <state relative-caret-position="4521">
           <caret line="139" column="9" lean-forward="false" selection-start-line="139" selection-start-column="9" selection-end-line="139" selection-end-column="9" />
           <folding>
-            <marker date="1507610381794" expanded="true" signature="785:809" ph="//..." />
+            <marker date="1507871641469" expanded="true" signature="785:809" ph="//..." />
           </folding>
         </state>
       </provider>
@@ -802,7 +804,7 @@
         <state relative-caret-position="4521">
           <caret line="139" column="9" lean-forward="false" selection-start-line="139" selection-start-column="9" selection-end-line="139" selection-end-column="9" />
           <folding>
-            <marker date="1507610381794" expanded="true" signature="785:809" ph="//..." />
+            <marker date="1507871641469" expanded="true" signature="785:809" ph="//..." />
           </folding>
         </state>
       </provider>
@@ -844,7 +846,7 @@
         <state relative-caret-position="4521">
           <caret line="139" column="9" lean-forward="false" selection-start-line="139" selection-start-column="9" selection-end-line="139" selection-end-column="9" />
           <folding>
-            <marker date="1507610381794" expanded="true" signature="785:809" ph="//..." />
+            <marker date="1507871641469" expanded="true" signature="785:809" ph="//..." />
           </folding>
         </state>
       </provider>
@@ -886,7 +888,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1507610381794" expanded="true" signature="785:809" ph="//..." />
+            <marker date="1507871641469" expanded="true" signature="785:809" ph="//..." />
           </folding>
         </state>
       </provider>
@@ -920,7 +922,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1507610381794" expanded="true" signature="785:809" ph="//..." />
+            <marker date="1507871641469" expanded="true" signature="785:809" ph="//..." />
           </folding>
         </state>
       </provider>
@@ -999,14 +1001,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3162">
-          <caret line="188" column="0" lean-forward="false" selection-start-line="188" selection-start-column="0" selection-end-line="188" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/all_kinds_of_tree_problems.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14790">
@@ -1017,11 +1011,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/things_to_do_with_arrays.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="451" column="55" lean-forward="true" selection-start-line="451" selection-start-column="55" selection-end-line="451" selection-end-column="55" />
+        <state relative-caret-position="17">
+          <caret line="489" column="51" lean-forward="false" selection-start-line="489" selection-start-column="51" selection-end-line="489" selection-end-column="51" />
           <folding>
-            <marker date="1507610381794" expanded="true" signature="785:809" ph="//..." />
+            <marker date="1507871641469" expanded="true" signature="785:809" ph="//..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3162">
+          <caret line="188" column="0" lean-forward="false" selection-start-line="188" selection-start-column="0" selection-end-line="188" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
