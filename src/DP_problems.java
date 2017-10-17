@@ -95,6 +95,24 @@ public class DP_problems{
             j++;
         return j == p.length();
     }
+    //dp approach
+    public boolean isMatch(String s, String p) {
+        boolean[][] match = new boolean[s.length()+1][p.length()+1];  
+        match[0][0]= true;
+ 
+        for(int i=1;i<=p.length();i++)
+            if(p.charAt(i-1)=='*')
+                match[0][i]= match[0][i-1];
+
+        for(int i=1;i<=s.length();i++)
+            for(int j=1;j<=p.length();j++){
+                if(p.charAt(j-1)!='*')
+                    match[i][j]=match[i-1][j-1] && (p.charAt(j-1)=='?' || s.charAt(i-1)== p.charAt(j-1));
+                else
+                    match[i][j]=match[i][j-1] || match[i-1][j] ;
+            }
+        return match[s.length()][p.length()];
+    }
 
 
 
@@ -172,4 +190,149 @@ public class DP_problems{
         return maxlength;
     }
 
+    //Unique path
+    //backwards
+    int[][] upcache;
+    public int uniquePaths(int m, int n) 
+    {
+        //use cache to save time
+        upcache = new int[m][n];
+        return up(m - 1, n - 1);
+    }
+    public int up(int m, int n)
+    {
+        if(m == 0 || n== 0)
+            return 1;
+        if(upcache[m][n] != 0)
+            return upcache[m][n];
+        int path = up(m-1, n) + up(m, n-1);
+        upcache[m][n] = path;
+        return path;
+    }
+
+    //forwards
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+        for(int i = 0; i < m; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(i == 0 && j ==0)
+                    dp[i][j] = 1;
+                if(j == 0 || i == 0)
+                    dp[i][j] = 1;
+                else
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1];
+                    
+            }
+        }
+        return dp[m-1][n-1];
+    }
+
+    //Unique path II
+    //with obstacle
+    //neat style
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        //this one is much liek the coin change problem
+        int width = obstacleGrid[0].length;
+        int[] dp = new int[width];
+        dp[0] = 1;
+        for(int[] row : obstacleGrid)
+        {
+            for(int j = 0; j < width; j++)
+            {
+                if(row[j] == 1)
+                    dp[j] = 0;
+                else if(j > 0)
+                    dp[j] += dp[j-1];
+            }
+        }
+        return dp[width - 1];
+    }
+    //old style
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].length;
+        int[][] dp = new int[m][n];
+        for(int i = 0; i < m; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(obstacleGrid[i][j] == 1)
+                    dp[i][j] = 0;
+                else if(i == 0 && j ==0)
+                    dp[i][j] = 1;
+                else if(j == 0)
+                    dp[i][j] = dp[i-1][j];
+                else if(i == 0)
+                    dp[i][j] = dp[i][j-1];
+                else
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1];
+                    
+            }
+        }
+        return dp[m-1][n-1];
+    }
+
+
+
+    //Minimum Path Sum
+    //backwards
+    int[][] dp;
+    public int minPathSum(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        dp = new int[m][n];
+        return minSum(m-1,n-1, grid);
+    }
+    public int minSum(int m, int n, int[][] grid)
+    {   
+        if(dp[m][n] != 0)               //this line is important for speeding up
+            return dp[m][n];
+        int result = grid[m][n];
+        if(m == 0 && n == 0)
+        {
+            dp[0][0] = result;
+            return result;
+        }
+        else if(m == 0)
+        {
+            dp[m][n] = result + minSum(m, n-1, grid);
+            return result + minSum(m, n-1, grid);
+        }
+        else if(n == 0)
+        {
+            dp[m][n] = result + minSum(m-1, n, grid);
+            return result + minSum(m-1, n, grid);
+        }
+        else {
+            dp[m][n] = result + Math.min(minSum(m, n - 1, grid), minSum(m - 1, n, grid));
+            return result + Math.min(minSum(m, n - 1, grid), minSum(m - 1, n, grid));
+        }
+    }
+    //forwards approach
+    public int minPathSum(int[][] grid) {
+        if(grid.length == 0)
+            return 0;
+        int m = grid.length;
+        int n = grid[0].length;
+        //we get sum of first row and col first because the rule of adding is
+        //add blocks that are left / above.
+        for(int i = 1; i < m; i++)  //sum of the first col
+        {
+            grid[i][0] += grid[i-1][0];
+        }
+        for(int j = 1; j < n; j++)  //sum of the first row
+        {
+            grid[0][j] += grid[0][j-1];
+        }
+        for(int i = 1; i < m; i++)
+        {
+            for(int j = 1; j < n; j++)
+            {
+                grid[i][j] += Math.min(grid[i-1][j], grid[i][j-1]);
+            }
+        }
+        return grid[m-1][n-1];
+    }
 }
+

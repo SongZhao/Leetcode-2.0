@@ -45,9 +45,20 @@
       <file leaf-file-name="DP_problems.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DP_problems.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="730">
+              <caret line="312" column="4" lean-forward="false" selection-start-line="312" selection-start-column="4" selection-end-line="312" selection-end-column="4" />
+              <folding>
+                <element signature="method#isMatch#3;class#DP_problems#0" expanded="false" />
+                <element signature="method#longestValidParentheses#0;class#DP_problems#0" expanded="false" />
+                <element signature="method#longestValidParentheses#1;class#DP_problems#0" expanded="false" />
+                <element signature="method#longestValidParentheses#2;class#DP_problems#0" expanded="false" />
+                <element signature="method#uniquePaths#0;class#DP_problems#0" expanded="false" />
+                <element signature="method#up#0;class#DP_problems#0" expanded="false" />
+                <element signature="method#uniquePaths#1;class#DP_problems#0" expanded="false" />
+                <element signature="method#uniquePathsWithObstacles#0;class#DP_problems#0" expanded="false" />
+                <element signature="method#uniquePathsWithObstacles#1;class#DP_problems#0" expanded="false" />
+                <element signature="method#minPathSum#0;class#DP_problems#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -154,7 +165,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="86" />
     <option name="y" value="6" />
     <option name="width" value="1351" />
@@ -554,15 +565,15 @@
       <workItem from="1507520654623" duration="597000" />
       <workItem from="1507609811480" duration="950000" />
       <workItem from="1507940062171" duration="65000" />
-      <workItem from="1508215620030" duration="2156000" />
+      <workItem from="1508215620030" duration="2271000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47172000" />
+    <option name="totallyTimeSpent" value="47287000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="86" y="6" width="1351" height="1047" extended-state="1" />
+    <frame x="86" y="6" width="1351" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1038,9 +1049,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DP_problems.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="730">
+          <caret line="312" column="4" lean-forward="false" selection-start-line="312" selection-start-column="4" selection-end-line="312" selection-end-column="4" />
+          <folding>
+            <element signature="method#isMatch#3;class#DP_problems#0" expanded="false" />
+            <element signature="method#longestValidParentheses#0;class#DP_problems#0" expanded="false" />
+            <element signature="method#longestValidParentheses#1;class#DP_problems#0" expanded="false" />
+            <element signature="method#longestValidParentheses#2;class#DP_problems#0" expanded="false" />
+            <element signature="method#uniquePaths#0;class#DP_problems#0" expanded="false" />
+            <element signature="method#up#0;class#DP_problems#0" expanded="false" />
+            <element signature="method#uniquePaths#1;class#DP_problems#0" expanded="false" />
+            <element signature="method#uniquePathsWithObstacles#0;class#DP_problems#0" expanded="false" />
+            <element signature="method#uniquePathsWithObstacles#1;class#DP_problems#0" expanded="false" />
+            <element signature="method#minPathSum#0;class#DP_problems#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
