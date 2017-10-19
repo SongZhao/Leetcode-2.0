@@ -91,7 +91,7 @@ public class DP_problems{
             else
                 return false;   //if j > p.length&&we didnt see any * in p
         }
-        while(j < p.length() && p.charAt(j) == '*') //we might have more left in p when we loop over s. if those left chars are all '*' then its a match. otherwise return false.
+        while(j < p.length() && p.charAt(j) == '*') //we might have more * left in p when we loop over s. if those left chars are all '*' then its a match. otherwise return false.
             j++;
         return j == p.length();
     }
@@ -333,6 +333,37 @@ public class DP_problems{
             }
         }
         return grid[m-1][n-1];
+    }
+
+    //Edit Distance
+    int[][] minDistanceMP;
+    //LEVENSHTEIN DISTANCE ALGO
+    public int minDistance(String word1, String word2) {
+        minDistanceMP = new int[word1.length()][word2.length()];
+        return LD(word1, word1.length(), word2, word2.length());
+    }
+    public int LD(String s, int len_s, String t, int len_t)
+    {
+        //base case
+        if(len_s == 0)
+            return len_t;
+        if(len_t == 0)
+            return len_s;
+        //check the map
+        if(minDistanceMP[len_s - 1][len_t - 1] > 0)
+            return minDistanceMP[len_s-1][len_t-1];
+        //test if last char of the string matches
+        int cost;
+        if(s.charAt(len_s - 1) == t.charAt(len_t-1))
+            cost = 0;
+        else
+            cost = 1;
+        // return minium of felete char from s, delete char from t, and delete char from both
+        int res = Math.min(LD(s, len_s - 1, t, len_t) + 1,
+                            Math.min(LD(s, len_s, t, len_t - 1) + 1, 
+                                    LD(s, len_s - 1, t, len_t - 1) + cost));
+        minDistanceMP[len_s - 1][len_t - 1] = res;
+        return res;
     }
 }
 

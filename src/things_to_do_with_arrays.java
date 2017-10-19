@@ -725,7 +725,7 @@ public class things_to_do_with_arrays {
     //Third Maximum Number
     //can do this navively by keeping 3 var to record top 3 value
     //this one use queue and set. Using priority que, so the one
-    //we poll is the smallest.
+    //we poll is the smallest.  
     public int thirdMax(int[] nums) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         Set<Integer> set = new HashSet<>();
@@ -836,6 +836,7 @@ public class things_to_do_with_arrays {
     }
 
     //Sliding Window Maximum
+    //#queue using linked list
     public int[] maxSlidingWindow(int[] nums, int k) {
 	    int n = nums.length;
 	    if (n == 0) {
@@ -857,6 +858,7 @@ public class things_to_do_with_arrays {
 	    }
 	    return result;
 	}
+
 
 
 }
