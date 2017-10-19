@@ -822,7 +822,8 @@ public class things_to_do_with_arrays {
     //Shortest Unsorted Continuous Subarray
     public int findUnsortedSubarray(int[] A) {
      	int i = 0, j = -1, max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
-    
+    	//a sorted array means that leftmost is the min
+    	// and right most is the max
 	    for (int l = 0, r = nums.length - 1; r >= 0; l++, r--) {
 	        max = Math.max(max, nums[l]);
 	        if (nums[l] != max) 
@@ -859,6 +860,24 @@ public class things_to_do_with_arrays {
 	    return result;
 	}
 
+	//trap rain water
+	public int trap(int[] height) {
+        int left = 0, right = height.length - 1, leftmax = 0, rightmax = 0, area = 0;
+        while(left < right)
+        {
+            if(height[left] > height[right])
+            {
+                rightmax = Math.max(height[right], rightmax);
+                area += rightmax - height[right--];
+            }
+            else
+            {
+                leftmax = Math.max(height[left], leftmax);
+                area += leftmax - height[left++];
+            }
+        }
+        return area;
+    }
 
 
 }
