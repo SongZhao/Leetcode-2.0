@@ -79,7 +79,7 @@ public class DP_problems{
             {
                 ikeeper = i;    //record both current i and j 
                 jkeeper = j;    
-                j++;            //increment j
+                j++;            //increment j, assume * stands for empty here
             }
             else if(jkeeper != -1) //if jkeeper isnt 0, which means we had a '*'
             {

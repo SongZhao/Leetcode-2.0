@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1db399c2-8366-40ef-b394-0a5c52679dc6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DP_problems.java" afterPath="$PROJECT_DIR$/src/DP_problems.java" />
-    </list>
+    <list default="true" id="1db399c2-8366-40ef-b394-0a5c52679dc6" name="Default" comment="" />
     <ignored path="Leetcode 2.0.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -45,8 +43,8 @@
       <file leaf-file-name="DP_problems.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DP_problems.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="730">
-              <caret line="312" column="4" lean-forward="false" selection-start-line="312" selection-start-column="4" selection-end-line="312" selection-end-column="4" />
+            <state relative-caret-position="509">
+              <caret line="299" column="49" lean-forward="true" selection-start-line="299" selection-start-column="49" selection-end-line="299" selection-end-column="49" />
               <folding>
                 <element signature="method#isMatch#3;class#DP_problems#0" expanded="false" />
                 <element signature="method#longestValidParentheses#0;class#DP_problems#0" expanded="false" />
@@ -166,8 +164,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="86" />
-    <option name="y" value="6" />
+    <option name="x" value="153" />
     <option name="width" value="1351" />
     <option name="height" value="1047" />
   </component>
@@ -195,7 +192,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../helpinghands" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -565,15 +562,15 @@
       <workItem from="1507520654623" duration="597000" />
       <workItem from="1507609811480" duration="950000" />
       <workItem from="1507940062171" duration="65000" />
-      <workItem from="1508215620030" duration="2271000" />
+      <workItem from="1508215620030" duration="2963000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47287000" />
+    <option name="totallyTimeSpent" value="47979000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="86" y="6" width="1351" height="1047" extended-state="0" />
+    <frame x="153" y="0" width="1351" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1049,8 +1046,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DP_problems.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="730">
-          <caret line="312" column="4" lean-forward="false" selection-start-line="312" selection-start-column="4" selection-end-line="312" selection-end-column="4" />
+        <state relative-caret-position="509">
+          <caret line="299" column="49" lean-forward="true" selection-start-line="299" selection-start-column="49" selection-end-line="299" selection-end-column="49" />
           <folding>
             <element signature="method#isMatch#3;class#DP_problems#0" expanded="false" />
             <element signature="method#longestValidParentheses#0;class#DP_problems#0" expanded="false" />
