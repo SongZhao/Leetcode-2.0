@@ -99,6 +99,36 @@ public class things_to_do_with_recursion {
     }
 
 
+    // Scramble String
+    public boolean isScramble(String s1, String s2)
+    {
+        if(s1 == null) || s2 == null || s1.length() != s2.length)
+            return false;
+        if(s1.equals(s2))
+            return true;
+        int[] letters = new int[26];        //the scrambled string is containing 
+        for (int i=0; i<s1.length(); i++) { //  just exactly the same set of 
+            letters[s1.charAt(i)-'a']++;    //  characters as the original string
+            letters[s2.charAt(i)-'a']--;
+        }
+        for (int i=0; i<26; i++)
+        { 
+            if (letters[i]!=0) 
+                return false;
+        }
+        for(int i = 1; i < s1.length(); i++)
+        {
+            if(isScramble(s1.substring(0,i), s2.substring(0,i)) && 
+                isScramble(s1.substring(i),s2.substring(i)))
+                return true;
+            if(isScramble(s1.substring(0,i), s2.substring(s2.length() - i)) &&
+                isScramble(s1.subtring(i), s2.subtring(0,s2.length() - i)))
+                return true;
+        }
+        return false;
+    }
+
+
 
 
 }
