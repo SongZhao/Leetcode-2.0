@@ -11,8 +11,17 @@ public class DP_problems{
     //find a way to divided the original problem into the sub problems and use the solutions of the 
     //sub problems to somehow create the solution of the original one.
 
+    /*Knapsack problem
+    //To consider all subsets of items, there can be two cases for every item
+    /       1. the item is in optimal set
+    /       2. the item is not in optimal set
+    / thus the maximum value can be obtained from n items is max of following two values
+    /       1. maximum value obtained by n-1 items and W weight(exculding the item)
+    /       2. nth item + maximum value obtained by n-1 items and W - (nth) wight.
+    /
+    */
 
-
+    
     //Regular Expression Matching
     //'.' Matches any single character.
     //'*' Matches zero or more of the preceding element.
