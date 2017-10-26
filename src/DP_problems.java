@@ -1,5 +1,10 @@
 public class DP_problems{
 
+    //when to use DP
+    // 1. asking max/min
+    // 2. asking yes/no
+    // 3. to count something.
+
     //when it comes to DP, the first thing for us to figure out is the format of the sub problem
     //(or the state of each sub problem). The format of the sub problem can be helpful when we are 
     //trying to come up with the recursive relation.
@@ -417,7 +422,66 @@ public class DP_problems{
             }
         }
         return res;
-    
+    }
+
+    //Decode ways
+    public int numDecodings(String s) {
+        if(s == null || s.length() == 0) {
+            return 0;
+        }
+        int n = s.length();
+        int[] dp = new int[n+1];
+        dp[0] = 1; //fixed value for the case where substring(0,2) is > 9 and < 27
+        dp[1] = s.charAt(0) != '0' ? 1 : 0;//no way to decode first 0
+        for(int i = 2; i <= n; i++) {
+            int first = Integer.valueOf(s.substring(i-1, i)); //char at i-1
+            int second = Integer.valueOf(s.substring(i-2, i));//char(i-2,i-1)
+            if(first >= 1 && first <= 9) {
+               dp[i] += dp[i-1];  
+            }
+            if(second >= 10 && second <= 26) {
+                dp[i] += dp[i-2];
+            }
+        }
+        return dp[n];
+    }
+
+    //climbing stairs
+    public int climbStairs(int n) {
+        int[] tmp = new int[n];
+        if (n < 2){
+            return 1;
+        }
+        tmp[0] = 1;
+        tmp[1] = 2;
+        for (int i = 2; i < n; i++){
+            tmp[i] = tmp[i-1] + tmp[i-2];
+        }
+        return tmp[n-1];
+    }
+
+
+
+
+    //Unique Binary Search Trees
+    public int numTrees(int n) 
+    {
+        int [] dp = new int[n+1];
+        dp[0]= 1;
+        dp[1] = 1;
+        //dp[n] = dp[0]*dp[n-1] + dp[1]*dp[n-2] + ... dp[n-1]*dp[0];
+        for(int i = 2; i <=n; i++)   
+            for(int j = 1; j<=i; j++)
+                dp[i] += dp[i-j]*dp[j-1];
+        return dp[n];
+    } 
+    //improve above function with BST asymmetric property
+    {
+        int j = 0;
+        for (; j < (i - 1) / 2; j ++) 
+            dp[i] += dp[j] * dp[(i - 1) - j] * 2;  
+        int temp = dp[j] * dp[(i - 1) - j];
+        dp[i] += (j == i - 1 - j) ? temp : temp * 2;
     }
 }
 
