@@ -36,11 +36,11 @@ public class DP_problems{
         boolean first_match = (!text.isEmpty() && 
                                (pattern.charAt(0) == text.charAt(0) || pattern.charAt(0) == '.'));
 
-        if (pattern.length() >= 2 && pattern.charAt(1) == '*'){
-            return (isMatch(text, pattern.substring(2)) || 
-                    (first_match && isMatch(text.substring(1), pattern)));
+        if (pattern.length() >= 2 && pattern.charAt(1) == '*'){ //condition when we have a *
+            return (isMatch(text, pattern.substring(2)) ||      //condition when * represents 0
+                    (first_match && isMatch(text.substring(1), pattern)));  //condition when * represents 1 or more.
         } else {
-            return first_match && isMatch(text.substring(1), pattern.substring(1));
+            return first_match && isMatch(text.substring(1), pattern.substring(1)); //when we don't have a star.
         }
     }
     //dp approach
@@ -51,10 +51,10 @@ public class DP_problems{
             return false;
         }
         boolean[][] dp = new boolean[s.length()+1][p.length()+1];
-        dp[0][0] = true;
-        for (int i = 0; i < p.length(); i++) {
-            if (p.charAt(i) == '*' && dp[0][i-1]) {
-                dp[0][i+1] = true;          // can cancel stuff like 'a*'
+        dp[0][0] = true;        //empty string match empty string
+        for (int i = 1; i <= p.length(); i++) {
+            if (p.charAt(i-1) == '*') {
+                dp[0][i] =  dp[0][i-2];          // can cancel stuff like 'a*' to match null string
             }
         }
         for (int i = 0 ; i < s.length(); i++) {
@@ -156,7 +156,7 @@ public class DP_problems{
                     max = Math.max(count, max);
                 }
                 else 
-                    stack.push(i);                  //also need to push ')' because we want substring.
+                    stack.push(i);                  //also need to push ')' to set as left boundary 
             }
         }
         return max;
@@ -459,7 +459,7 @@ public class DP_problems{
         return dp[n];
     }
 
-    //climbing stairs
+    //climbStairsing stairs
     public int climbStairs(int n) {
         int[] tmp = new int[n];
         if (n < 2){
@@ -496,5 +496,36 @@ public class DP_problems{
         int temp = dp[j] * dp[(i - 1) - j];
         dp[i] += (j == i - 1 - j) ? temp : temp * 2;
     }
+
+
+
+    //Unique Binary Search Trees II
+    public List<TreeNode> generateTrees(int n) 
+    {
+        return generateTrees(1,n);
+    }
+
+    public List<TreeNode> generateTrees(int start,int end)
+    {             
+        List<TreeNode> trees = new ArrayList<TreeNode>();
+        if(start>end){  trees.add(null); return trees;}
+
+        for(int rootValue=start;rootValue<=end;rootValue++){
+            List<TreeNode> leftSubTrees=generateTrees(start,rootValue-1);
+            List<TreeNode> rightSubTrees=generateTrees(rootValue+1,end);
+
+            for(TreeNode leftSubTree:leftSubTrees){
+                for(TreeNode rightSubTree:rightSubTrees){
+                    TreeNode root=new TreeNode(rootValue);
+                    root.left=leftSubTree;
+                    root.right=rightSubTree;
+                    trees.add(root);
+                }
+            }
+        }
+        return trees;
+    }
+
+    //https://leetcode.com/problems/unique-binary-search-trees-ii/discuss/
 }
 
