@@ -1,6 +1,7 @@
+﻿
 
+import java.util.List;  
 
-import java.util.List;
 
 public class search_algo {
 	//Bubble sort    space o(1)
