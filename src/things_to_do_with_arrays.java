@@ -882,6 +882,12 @@ public class things_to_do_with_arrays {
 	}
 
 	//trap rain water
+	
+	/*
+	/ think it more like from sides to center. use sides as one of the wall, and start 
+	/ from the lowest side, switch over to another side if this side is higher than another
+	/ because lower wall decides the capacity.
+	*/
 	public int trap(int[] height) {
         int left = 0, right = height.length - 1, leftmax = 0, rightmax = 0, area = 0;
         while(left < right)
@@ -899,6 +905,84 @@ public class things_to_do_with_arrays {
         }
         return area;
     }
+
+    //3Sum closest
+    //Given an array S of n integers, find three integers in S such that the sum is closest to 
+    //a given number, return the sum of the three integers. You may assume each input would 
+    //have exactly one solution
+
+    /*idea
+    / This is just like 3 sum. but instead of finding a match we use a variable to keep track of 
+    / the result. the compare condition would be the |previous record - target| larger than 
+    / |current value - target|. return the result after running all combination 
+    /  
+    */
+    public int threeSumClosest(int[] num, int target) {
+	    int result = num[0] + num[1] + num[num.length - 1];
+	    Arrays.sort(num);
+	    for (int i = 0; i < num.length - 2; i++) {
+	    	if(i == 0 || nums[i]!= nums[i - 1]) //remove the duplicates since we already sorted the array
+	    	{
+		    	//note here we are using start = i + 1 to eliminate cases that already examed.
+		        int start = i + 1, end = num.length - 1;   
+		        while (start < end) 
+		        {
+		            int sum = num[i] + num[start] + num[end];
+		            if (sum > target) {
+		                end--;
+		            } else {
+		                start++;
+		            }
+		            if (Math.abs(sum - target) < Math.abs(result - target)) {
+		                result = sum;
+		            }
+		        }
+		    }
+		}
+	    return result;
+	}
+
+
+	//4Sum
+	//given an array and a target, find all unique euadruplets in the 
+	// array which gives the sum of the target.
+	public List<List<Integer>> fourSum(int[] num, int target) 
+	{
+	    ArrayList<List<Integer>> ans = new ArrayList<>();
+	    if(num.length<4)
+	    	return ans;
+	    Arrays.sort(num);
+	    for(int i=0; i<num.length-3; i++){
+	        if(num[i]+num[i+1]+num[i+2]+num[i+3]>target)
+	        	break; //first candidate too large, search finished
+	        if(num[i]+num[num.length-1]+num[num.length-2]+num[num.length-3]<target)
+	        	continue; //first candidate too small
+	        if(i>0&&num[i]==num[i-1])continue; //prevents duplicate result in ans list
+	        for(int j=i+1; j<num.length-2; j++){
+	            if(num[i]+num[j]+num[j+1]+num[j+2]>target)break; //second candidate too large
+	            if(num[i]+num[j]+num[num.length-1]+num[num.length-2]<target)continue; //second candidate too small
+	            if(j>i+1&&num[j]==num[j-1])continue; //prevents duplicate results in ans list
+	            int low=j+1, high=num.length-1;
+	            while(low<high){
+	                int sum=num[i]+num[j]+num[low]+num[high];
+	                if(sum==target){
+	                    ans.add(Arrays.asList(num[i], num[j], num[low], num[high]));
+	                    while(low<high&&num[low]==num[low+1])
+	                    	low++; //skipping over duplicate on low
+	                    while(low<high&&num[high]==num[high-1])
+	                    	high--; //skipping over duplicate on high
+	                    low++; 
+	                    high--;
+	                }
+	                //move window
+	                else if(sum<target)
+	                	low++; 
+	                else 
+	                	high--;
+	            }
+	        }
+    }
+   
 
 
 }
