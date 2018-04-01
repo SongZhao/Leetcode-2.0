@@ -77,7 +77,17 @@ public class things_to_do_with_arrays {
 	//Majority element
 	//Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
 	//You may assume that the array is non-empty and the majority element always exist in the array  .
-
+     
+    /*idea #1
+    / just record first element and go through the list. use a variable to count the record's appearance
+    / if current element = record, then increase the count, otherwise decrease the count. if the count is 
+    / already 0 and element != record, assign the element to the record. If there is a majority element
+    / then it must equals to the record.     O(n)
+    /
+    / idea #2
+    / use recursive. break the list in two and in each layer count the results returned from the lower layer
+ 	/ O(log(n))
+    */
 	public int majorityElement1(int[] nums)
 	{
 		if (nums == null || nums.length == 0) return 0;
@@ -102,8 +112,10 @@ public class things_to_do_with_arrays {
 		int rightM = majorityElement(Arrays.copyOfRange(nums, nums.length/2, nums.length));
 		int counterLeft = 0;
 		for (int num : nums) {
-			if (num == leftM) counterLeft++;
-			if (counterLeft > nums.length/2) return leftM;
+			if (num == leftM) 
+				counterLeft++;
+			if (counterLeft > nums.length/2) 
+				return leftM;
 		}
 		return rightM;
 	}
@@ -116,6 +128,15 @@ public class things_to_do_with_arrays {
 	//this time we are trying to find elements that apppear >= n/3
 	//note that >= n/3 means there are at most two elements that can
 	//satisfy this
+	
+	/*idea
+    / keep two record, go through the list, if we meet a element 
+    / different with the record, reduce both record count by 1. if
+    / the record count is 0, assign current element to the record.
+    / go through the list the second time to see if both record appeared
+	/ n/3 times.
+	*/
+
 
     public List<Integer> majorityElement(int[] nums) {
         if (nums == null || nums.length == 0)
