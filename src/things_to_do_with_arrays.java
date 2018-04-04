@@ -77,7 +77,17 @@ public class things_to_do_with_arrays {
 	//Majority element
 	//Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
 	//You may assume that the array is non-empty and the majority element always exist in the array  .
-
+     
+    /*idea #1
+    / just record first element and go through the list. use a variable to count the record's appearance
+    / if current element = record, then increase the count, otherwise decrease the count. if the count is 
+    / already 0 and element != record, assign the element to the record. If there is a majority element
+    / then it must equals to the record.     O(n)
+    /
+    / idea #2
+    / use recursive. break the list in two and in each layer count the results returned from the lower layer
+ 	/ O(log(n))
+    */
 	public int majorityElement1(int[] nums)
 	{
 		if (nums == null || nums.length == 0) return 0;
@@ -102,8 +112,10 @@ public class things_to_do_with_arrays {
 		int rightM = majorityElement(Arrays.copyOfRange(nums, nums.length/2, nums.length));
 		int counterLeft = 0;
 		for (int num : nums) {
-			if (num == leftM) counterLeft++;
-			if (counterLeft > nums.length/2) return leftM;
+			if (num == leftM) 
+				counterLeft++;
+			if (counterLeft > nums.length/2) 
+				return leftM;
 		}
 		return rightM;
 	}
@@ -116,6 +128,15 @@ public class things_to_do_with_arrays {
 	//this time we are trying to find elements that apppear >= n/3
 	//note that >= n/3 means there are at most two elements that can
 	//satisfy this
+	
+	/*idea
+    / keep two record, go through the list, if we meet a element 
+    / different with the record, reduce both record count by 1. if
+    / the record count is 0, assign current element to the record.
+    / go through the list the second time to see if both record appeared
+	/ n/3 times.
+	*/
+
 
     public List<Integer> majorityElement(int[] nums) {
         if (nums == null || nums.length == 0)
@@ -861,6 +882,12 @@ public class things_to_do_with_arrays {
 	}
 
 	//trap rain water
+	
+	/*
+	/ think it more like from sides to center. use sides as one of the wall, and start 
+	/ from the lowest side, switch over to another side if this side is higher than another
+	/ because lower wall decides the capacity.
+	*/
 	public int trap(int[] height) {
         int left = 0, right = height.length - 1, leftmax = 0, rightmax = 0, area = 0;
         while(left < right)
@@ -879,6 +906,7 @@ public class things_to_do_with_arrays {
         return area;
     }
 
+
     //Maximum Product Subarray
     //Find the contiguous subarray within an array (containing at least one number) which has the largest product.
     public int maxProduct(int[] nums) {
@@ -892,4 +920,84 @@ public class things_to_do_with_arrays {
         }
         return max;
     }
+
+    //3Sum closest
+    //Given an array S of n integers, find three integers in S such that the sum is closest to 
+    //a given number, return the sum of the three integers. You may assume each input would 
+    //have exactly one solution
+
+    /*idea
+    / This is just like 3 sum. but instead of finding a match we use a variable to keep track of 
+    / the result. the compare condition would be the |previous record - target| larger than 
+    / |current value - target|. return the result after running all combination 
+    /  
+    */
+    public int threeSumClosest(int[] num, int target) {
+	    int result = num[0] + num[1] + num[num.length - 1];
+	    Arrays.sort(num);
+	    for (int i = 0; i < num.length - 2; i++) {
+	    	if(i == 0 || nums[i]!= nums[i - 1]) //remove the duplicates since we already sorted the array
+	    	{
+		    	//note here we are using start = i + 1 to eliminate cases that already examed.
+		        int start = i + 1, end = num.length - 1;   
+		        while (start < end) 
+		        {
+		            int sum = num[i] + num[start] + num[end];
+		            if (sum > target) {
+		                end--;
+		            } else {
+		                start++;
+		            }
+		            if (Math.abs(sum - target) < Math.abs(result - target)) {
+		                result = sum;
+		            }
+		        }
+		    }
+		}
+	    return result;
+	}
+
+
+	//4Sum
+	//given an array and a target, find all unique euadruplets in the 
+	// array which gives the sum of the target.
+	public List<List<Integer>> fourSum(int[] num, int target) 
+	{
+	    ArrayList<List<Integer>> ans = new ArrayList<>();
+	    if(num.length<4)
+	    	return ans;
+	    Arrays.sort(num);
+	    for(int i=0; i<num.length-3; i++){
+	        if(num[i]+num[i+1]+num[i+2]+num[i+3]>target)
+	        	break; //first candidate too large, search finished
+	        if(num[i]+num[num.length-1]+num[num.length-2]+num[num.length-3]<target)
+	        	continue; //first candidate too small
+	        if(i>0&&num[i]==num[i-1])continue; //prevents duplicate result in ans list
+	        for(int j=i+1; j<num.length-2; j++){
+	            if(num[i]+num[j]+num[j+1]+num[j+2]>target)break; //second candidate too large
+	            if(num[i]+num[j]+num[num.length-1]+num[num.length-2]<target)continue; //second candidate too small
+	            if(j>i+1&&num[j]==num[j-1])continue; //prevents duplicate results in ans list
+	            int low=j+1, high=num.length-1;
+	            while(low<high){
+	                int sum=num[i]+num[j]+num[low]+num[high];
+	                if(sum==target){
+	                    ans.add(Arrays.asList(num[i], num[j], num[low], num[high]));
+	                    while(low<high&&num[low]==num[low+1])
+	                    	low++; //skipping over duplicate on low
+	                    while(low<high&&num[high]==num[high-1])
+	                    	high--; //skipping over duplicate on high
+	                    low++; 
+	                    high--;
+	                }
+	                //move window
+	                else if(sum<target)
+	                	low++; 
+	                else 
+	                	high--;
+	            }
+	        }
+    }
+   
+
+
 }
