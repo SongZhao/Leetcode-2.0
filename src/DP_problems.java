@@ -10,7 +10,17 @@ public class DP_problems{
     //trying to come up with the recursive relation.
     //find a way to divided the original problem into the sub problems and use the solutions of the 
     //sub problems to somehow create the solution of the original one.
+    
 
+
+
+    /*
+    / A DP is an algorithmic technique which is usually based on a recurrent formula and one starting states.
+    / a sub solution of the problem is constructed from previously found ones. 
+    / Define states
+
+
+    */
     /*Knapsack problem
     //To consider all subsets of items, there can be two cases for every item
     /       1. the item is in optimal set
