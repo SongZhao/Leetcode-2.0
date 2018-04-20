@@ -34,7 +34,50 @@ public class DP_problems{
     //fd
 
 
-
+    //climbStairsing stairs
+    public int climbStairs(int n) {
+        int[] tmp = new int[n];
+        if (n < 2){
+            return 1;
+        }
+        tmp[0] = 1;
+        tmp[1] = 2;
+        for (int i = 2; i < n; i++){
+            tmp[i] = tmp[i-1] + tmp[i-2];
+        }
+        return tmp[n-1];
+    }
+    //top-down recursion solution
+    //Note that we have to use a mem to memorize all the 
+    // results we have went through, otherwise this recursion
+    // enter way too much branches and cause LTE.
+    HashMap<Integer, Integer> mem = new HashMap<Integer, Integer>();
+    public int climbStairs(int n) {
+        int steps;
+        if(n == 0)
+            return 1;
+        if(n == 1)
+            return 1;
+        if(mem.containsKey(n))
+            return mem.get(n);
+        steps = climbStairs(n-1) + climbStairs(n-2);
+        mem.put(n, steps);
+        return steps;
+    }
+    
+    //#53 Maximum Subarray
+    //Given an integer array nums, find the contiguous subarray which has
+    // the largest sum and return its sum
+    public int maxSubArray(int[] nums) {
+        int sum = 0;
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i < nums.length; i++)
+        {
+           sum = Math.max(nums[i], sum + nums[i]);
+           max = Math.max(sum, max);
+        }
+        return max;
+    }
 
 
     //Regular Expression Matching
@@ -470,19 +513,7 @@ public class DP_problems{
         return dp[n];
     }
 
-    //climbStairsing stairs
-    public int climbStairs(int n) {
-        int[] tmp = new int[n];
-        if (n < 2){
-            return 1;
-        }
-        tmp[0] = 1;
-        tmp[1] = 2;
-        for (int i = 2; i < n; i++){
-            tmp[i] = tmp[i-1] + tmp[i-2];
-        }
-        return tmp[n-1];
-    }
+
 
 
 
