@@ -79,6 +79,120 @@ public class DP_problems{
         return max;
     }
 
+    //121 Best Time to buy and sell
+    // This problem can reduce to the Maximum subarray problem
+    // since at most 1 transaction is allowed, it can be treated
+    // as find the largest sum of a contiguous subarray
+    public int maxProfit(int[] prices) {
+        if(prices.length < 2)
+            return 0;
+        int[] diff = new int[prices.length -1];
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        for(int i = 0; i <= prices.length - 2; i++)
+        {
+            diff[i] = prices[i+1] - prices[i];
+            sum = Math.max(diff[i], sum+diff[i]);
+            max = Math.max(sum, max);
+        }
+        if (max < 0)
+            return 0;
+        else
+            return max;
+    }
+    //746 Min cost climbing Stairs
+    //like the climb stair problem, but find the minimum instead
+    public int minCostClimbingStairs(int[] cost) {
+        int[] A = new int[cost.length];
+        A[0] = cost[0];
+        A[1] = cost[1];
+        for(int i = 2; i <= cost.length - 1; i++)
+        {
+            A[i] = Math.min(A[i-1], A[i-2]) + cost[i];
+        }
+        return Math.min(A[A.length-1], A[A.length-2]);
+    }
+
+    //198 House Robber
+    //This problem can be reduce to the climb problem
+    public int rob(int[] nums) {
+        if(nums.length <=0 || nums == null)
+        {
+            return 0;
+        }
+        if(nums.length == 1)
+            return nums[0];
+        if(nums.length == 2)
+            return Math.max(nums[0], nums[1]);
+        int[] A =new int[nums.length];
+        A[0] = nums[0];
+        A[1] = nums[1];
+        A[2] = nums[2] + nums[0];
+        for(int i = 3; i < nums.length; i++)
+        {
+            A[i] = Math.max(A[i-2], A[i-3]) + nums[i];
+        }
+        return Math.max(A[A.length-1], A[A.length-2]);
+    }
+    //This problem can also be solved use similiar idea of 
+    // knapsack problem.
+    public static int rob(int[] nums) 
+    {
+        int ifRobbedPrevious = 0;   // max monney can get if rob current house
+        int ifDidntRobPrevious = 0; // max money can get if not rob current house  
+        // We go through all the values, we maintain two counts, 1) if we rob this cell, 2) if we didn't rob this cell
+        for(int i=0; i < nums.length; i++) 
+        {
+            // If we rob current cell, previous cell shouldn't be robbed. So, add the current value to previous one.
+            int currRobbed = ifDidntRobPrevious + nums[i];
+            // If we don't rob current cell, then the count should be max of the previous cell robbed and not robbed
+            int currNotRobbed = Math.max(ifDidntRobPrevious, ifRobbedPrevious); 
+            // Update values for the next round
+            ifDidntRobPrevious  = currNotRobbed;
+            ifRobbedPrevious = currRobbed;
+        }
+        return Math.max(ifRobbedPrevious, ifDidntRobPrevious);
+    }
+
+    //#303. Range Sum Query - Immutable
+    //idea is simple sum(i,j) = sum(0,j) - sum(0,i-1)
+    int[] nums;
+    public NumArray(int[] nums) {
+        for(int i = 1; i < nums.length; i++)
+            nums[i] += nums[i - 1];
+        
+        this.nums = nums;
+    }
+
+    public int sumRange(int i, int j) {
+        if(i == 0)
+            return nums[j];
+        
+        return nums[j] - nums[i - 1];
+    }
+
+    //#338. Counting Bits
+    //the binray pattern is obvious.
+    public int[] countBits(int num) 
+    {
+        int[] bits = new int[num + 1];    
+        for(int i = 1; i <= num; i++)
+        {
+            bits[i] = bits[i/2];
+            if(i%2 == 1) 
+                bits[i]++; 
+        }
+        return bits;
+    }
+    //bitwise operation. i>>1 is as the same as i/2
+    //i&1 is the same as i%2
+    public int[] countBits(int num) {
+        int[] f = new int[num + 1];
+        for (int i=1; i<=num; i++) 
+            f[i] = f[i >> 1] + (i & 1);
+        return f;
+    }
+
 
     //Regular Expression Matching
     //'.' Matches any single character.
