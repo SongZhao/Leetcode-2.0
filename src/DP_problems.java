@@ -192,8 +192,24 @@ public class DP_problems{
             f[i] = f[i >> 1] + (i & 1);
         return f;
     }
-
-
+    //647. Palindromic Substrings
+    /*Given a string, your task is to count how many 
+    palindromic substrings in this string.
+    The substrings with different start indexes or end 
+    indexes are counted as different substrings even they 
+    consist of same characters.*/
+    public int countSubstrings(String s) {
+    int n = s.length();
+    int res = 0;
+    boolean[][] dp = new boolean[n][n];
+    for (int i = n - 1; i >= 0; i--) {
+        for (int j = i; j < n; j++) {
+            dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 3 || dp[i + 1][j - 1]);
+            if(dp[i][j]) 
+                ++res;
+        }
+    }
+    return res;
     //Regular Expression Matching
     //'.' Matches any single character.
     //'*' Matches zero or more of the preceding element.
