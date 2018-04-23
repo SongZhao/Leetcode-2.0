@@ -154,6 +154,19 @@ public class DP_problems{
         return Math.max(ifRobbedPrevious, ifDidntRobPrevious);
     }
 
+    //413. Arthmetic Slices
+    public int numberOfArithmeticSlices(int[] A) {
+        int curr = 0, sum = 0;
+        for (int i=2; i<A.length; i++)
+            if (A[i]-A[i-1] == A[i-1]-A[i-2]) {
+                curr += 1;
+                sum += curr;
+            } else {
+                curr = 0;
+            }
+        return sum;
+    }
+
     //#303. Range Sum Query - Immutable
     //idea is simple sum(i,j) = sum(0,j) - sum(0,i-1)
     int[] nums;
