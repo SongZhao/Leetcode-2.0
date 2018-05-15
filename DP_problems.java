@@ -850,5 +850,26 @@ public class DP_problems{
         return result.get(0);        
     }
 
+    //750
+    /*Given a grid where each entry is only 0 or 1, find the number of corner rectangles.
+    A corner rectangle is 4 distinct 1s on the grid that form an axis-aligned rectangle. 
+    Note that only the corners need to have the value 1. Also, all four 1s used must be distinct.
+    */
+    public int countCornerRectangles(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        int ans = 0;
+        for (int x = 0; x < m; x++) {
+            for (int y = x + 1; y < m; y++) {
+                int cnt = 0;
+                for (int z = 0; z < n; z++) {
+                    if (grid[x][z] == 1 && grid[y][z] == 1) {
+                        cnt++;
+                    }
+                }
+                ans += cnt * (cnt - 1) / 2;  //add up the combination of distinct 1 pair in same column
+            }
+        }
+        return ans;
+    }
 }
 
