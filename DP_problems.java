@@ -155,12 +155,30 @@ public class DP_problems{
     }
 
     //413. Arthmetic Slices
+    /*
+    A sequence of number is called arithmetic if it consists of at least three elements and if the difference between any two consecutive elements is the same.
+
+    For example, these are arithmetic sequence:
+
+    1, 3, 5, 7, 9
+    7, 7, 7, 7
+    3, -1, -5, -9
+    The following sequence is not arithmetic.
+
+    1, 1, 2, 5, 7
+
+    The function should return the number of arithmetic slices in the array A.
+    */
+    /*The idea is that we check 3 consective numbers, if they are arithmetic slices
+    / we got our first AS, we record the # of AS (say its n) the last element belong to; for each
+    / elements that can form AS with previous elements, it will form n + 1 new AS. 
+    */
     public int numberOfArithmeticSlices(int[] A) {
         int curr = 0, sum = 0;
         for (int i=2; i<A.length; i++)
             if (A[i]-A[i-1] == A[i-1]-A[i-2]) {
-                curr += 1;
-                sum += curr;
+                curr += 1;      //n = n + 1
+                sum += curr;    //add this number to total amount.
             } else {
                 curr = 0;
             }
@@ -939,18 +957,6 @@ public class DP_problems{
         }
         return re;
     }
-    //DP
-    public int findLongestChain(int[][] pairs) {
-        if (pairs == null || pairs.length == 0) return 0;
-        Arrays.sort(pairs, (a, b) -> (a[0] - b[0]));
-        int[] dp = new int[pairs.length];
-        Arrays.fill(dp, 1);
-        for (int i = 0; i < dp.length; i++) {
-            for (int j = 0; j < i; j++) {
-                dp[i] = Math.max(dp[i], pairs[i][0] > pairs[j][1]? dp[j] + 1 : dp[j]);
-            }
-        }
-        return dp[pairs.length - 1];
-    }
+
 }
 
