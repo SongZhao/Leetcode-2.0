@@ -601,7 +601,7 @@ public class things_to_do_with_arrays {
             }
             int best = 0;
             for(int n : set) {
-                if(!set.contains(n - 1)) {  // only check for one direction
+                if(!set.contains(n - 1)) {  // only check for one direction,this will let us start from the lowest element of the seq
                     int m = n + 1;
                     while(set.contains(m)) {
                         m++;

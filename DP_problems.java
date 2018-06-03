@@ -223,26 +223,6 @@ public class DP_problems{
             f[i] = f[i >> 1] + (i & 1);
         return f;
     }
-    //647. Palindromic Substrings
-    /*Given a string, your task is to count how many 
-    palindromic substrings in this string.
-    The substrings with different start indexes or end 
-    indexes are counted as different substrings even they 
-    consist of same characters.*/
-    public int countSubstrings(String s) {
-        int n = s.length();
-        int res = 0;
-        boolean[][] dp = new boolean[n][n];
-        for (int i = n - 1; i >= 0; i--) {
-            for (int j = i; j < n; j++) {
-                dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 3 || dp[i + 1][j - 1]);
-                if(dp[i][j]) 
-                    ++res;
-            }
-        }
-        return res;
-    }
-    
 
 
 
@@ -905,6 +885,26 @@ public class DP_problems{
             j++;    //To trace string in right direction
         }
     }
+    //647. Palindromic Substrings
+    /*Given a string, your task is to count how many 
+    palindromic substrings in this string.
+    The substrings with different start indexes or end 
+    indexes are counted as different substrings even they 
+    consist of same characters.*/
+    public int countSubstrings(String s) {
+        int n = s.length();
+        int res = 0;
+        boolean[][] dp = new boolean[n][n];
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i; j < n; j++) {
+                dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 3 || dp[i + 1][j - 1]);
+                if(dp[i][j]) 
+                    ++res;
+            }
+        }
+        return res;
+    }
+    
 
     /*
     Given two strings s1, s2, find the lowest ASCII sum of deleted characters to make two strings equal.
@@ -946,6 +946,7 @@ public class DP_problems{
     /
     */
     //greedy solution 
+    //first sort the list
     public int findLongestChain(int[][] pairs) {
         int re=0,form=Integer.MIN_VALUE;
         Arrays.sort(pairs, (p1, p2) -> (p1[1] - p2[1]));
@@ -957,6 +958,69 @@ public class DP_problems{
         }
         return re;
     }
+    //300. Longest Increasing Subsequence
+    /*
+    / Given an unsorted array of integers, find the length of longest increasing subsequence.  
+    */
 
+    //O(n^2)
+    //
+    public int lengthOfLIS(int[] nums){
+        int[] dp = new int[nums.length];
+        int res = 0;
+        Arrays.fill(dp, 1);
+        for (int i = 0; i < dp.length; i++)
+        {
+            for(int j = 0; j < i; j++)
+            {
+                if(nums[j] < nums[i])
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+            res = Math.max(res, dp[i]);
+        }
+        return res;
+    }
+
+    //nlogn solution https://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
+    public int lengthOfLIS(int[] nums) {
+        if (nums.length == 0) return 0;
+        
+        int n = nums.length, len = 1;
+        int[] tailTable = new int[n];
+        
+        tailTable[0] = nums[0];
+        
+        for (int i = 1; i < n; i++) {
+          if (nums[i] < tailTable[0]) {
+            // new smallest value
+            tailTable[0] = nums[i];
+          } else if (nums[i] > tailTable[len - 1]) {
+            // nums[i] wants to extend largest subsequence
+            tailTable[len++] = nums[i];
+          } else {
+            // nums[i] wants to be current end candidate of an existing subsequence
+            // It will replace ceil value in tailTable
+            tailTable[ceilIndex(tailTable, -1, len - 1, nums[i])] = nums[i];
+          }
+        }
+
+        return len;
+    }
+  
+  // binary search helper
+  int ceilIndex(int[] tailTable, int lo, int hi, int key) 
+  {
+        while (hi - lo > 1) {
+          int mid = lo + (hi - lo) / 2;
+            
+          if (tailTable[mid] >= key) {
+            hi = mid;
+          } else {
+            lo = mid;
+          }
+        }
+
+        return hi;
+  }
 }
 
