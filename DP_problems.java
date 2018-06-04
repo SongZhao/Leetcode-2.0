@@ -897,7 +897,8 @@ public class DP_problems{
         boolean[][] dp = new boolean[n][n];
         for (int i = n - 1; i >= 0; i--) {
             for (int j = i; j < n; j++) {
-                dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 3 || dp[i + 1][j - 1]);
+                //the reason we start from end to start is that we want to use dp[i+1] so we need to fill the last row first.
+                dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 3 || dp[i + 1][j - 1]);  
                 if(dp[i][j]) 
                     ++res;
             }
@@ -1007,9 +1008,9 @@ public class DP_problems{
         return len;
     }
   
-  // binary search helper
-  int ceilIndex(int[] tailTable, int lo, int hi, int key) 
-  {
+     // binary search helper
+     int ceilIndex(int[] tailTable, int lo, int hi, int key) 
+    {
         while (hi - lo > 1) {
           int mid = lo + (hi - lo) / 2;
             
@@ -1021,6 +1022,68 @@ public class DP_problems{
         }
 
         return hi;
-  }
+    }
+
+
+    //343 Integer Break
+    /*Given a positive integer n, break it into the sum of at least two positive integers and maximize the product of those integers
+    / Return the maximum product you can get.
+    */
+    public int integerBreak(int n)
+    {
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        for(int i=2; i <= n; i++)
+        {
+            for(int j = 1; j < i; j++)
+                dp[i] = Math.max(dp[i], (Math.max(dp[j], j) *Math.max(i-j, dp[i-j])));
+        }
+        return dp[n];
+    }
+
+    //714 Best Time to buy and sell stock with transaction fee
+    /*
+    /
+    /Your are given an array of integers prices, for which the i-th element is the price of a 
+    /given stock on day i; and a non-negative integer fee representing a transaction fee.
+    /You may complete as many transactions as you like, but you need to pay the transaction fee 
+    /for each transaction. You may not buy more than 1 share of a stock at a time (ie. you must 
+    /sell the stock share before you buy again.)
+    /Return the maximum profit you can make.
+    */
+    public int maxProfit(int[] prices, int fee) {
+        int days = prices.length;
+        if(days <= 1)
+            return 0;
+        int[] buy = new int[days];
+        int[] sell = new int[days];
+        buy[0] = - prices[0] - fee;
+        sell[0] = 0;
+        for(int i=1; i<days; i++)
+        {
+            buy[i] = Math.max(buy[i-1], sell[i-1] - prices[i] - fee);
+            sell[i] = Math.max(sell[i-1], buy[i-1] + prices[i]);
+        }
+        return sell[days-1];
+    }
+
+    //367 Count Numbers  with unique digits
+    public int countNumbersWithUniqueDigits(int n) {
+        if(n == 0)
+            return 1;
+        if(n == 1)
+            return 10;
+        int nums[] = new int[n+1];
+        nums[0] = 0;
+        nums[1] = 9;
+        int sum = 10;
+        for(int i = 2; i <= n; i++)
+        {
+            nums[i] = nums[i-1]*(11-i);
+            sum += nums[i];
+        }
+        return sum;
+    }
+
 }
 
