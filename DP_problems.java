@@ -1085,5 +1085,61 @@ public class DP_problems{
         return sum;
     }
 
+    //638. Shopping Offers
+    /*Input: [2,5], [[3,0,5],[1,2,10]], [3,2]
+    /Output: 14
+    /Explanation: 
+    /There are two kinds of items, A and B. Their prices are $2 and $5 respectively. 
+    /In special offer 1, you can pay $5 for 3A and 0B
+    /In special offer 2, you can pay $10 for 1A and 2B. 
+    /You need to buy 3A and 2B, so you may pay $10 for 1A and 2B (special offer #2), and $4 for 2A.
+    */
+    /*idea: enumerate all the possibilites, backtracing from bot to top.*/
+
+
+    public int shoppingOffers(List<Integer> price, List<List<Integer>> special, List<Integer> needs) {
+        HashMap<List<Integer>, Integer> map = new HashMap<>();
+        return helper(price, special, needs, 0, map);
+    }
+    private int helper(List<Integer> price, List<List<Integer>> special, List<Integer> needs, int cur, HashMap<List<Integer>, Integer> map)
+    {
+        //base case
+        if(price == null|| price.size() == 0 || needs ==null || needs.size() == 0)
+        {
+            return 0;
+        }
+        //memorize
+        if(map.containsKey(needs))
+        {
+            return map.get(needs);
+        }
+        //calculate the cost of current needs without special order
+        int ans = 0;
+        for(int i = 0; i < price.size(); i++)
+        {
+            ans += price.get(i)*needs.get(i);
+        }
+        //enumerate each possibilities
+        for(int j = cur; j < special.size(); j++)  //for each special order
+        {
+            List<Integer> item = special.get(j);
+            List<Integer> copy = new LinkedList<Integer>(needs); //make a new copy of needs because we need to pass it down
+            int i = 0;
+            for(i = 0; i < copy.size(); i++)
+            {
+                if(copy.get(i) < item.get(i))  //we can't buy more than we need
+                    break;
+                copy.set(i, copy.get(i) - item.get(i)); //update new needs of each goods if we use this special order
+            }
+            if(i == copy.size()) //if i = copy.size that means previous for loop didn't break and this is a possible purchase
+            {
+                ans = Math.min(ans, item.get(i) + helper(price, special, copy, j, map)); //pass down
+            }
+        }
+            
+        map.put(needs, ans);//record the cost with corresponding needs
+        return ans;
+    }
+
 }
 
